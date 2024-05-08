@@ -3,6 +3,7 @@ from arc.arc.dia import dig_matrix
 from arc.arc.data_types import *
 
 # TODO: Need to figure out a better example with dtype
+# TODO: Refactor test cases
 
 
 def test_default_constrcutor():
@@ -62,8 +63,13 @@ def test_multiplication():
     assert (D[0, :] == [2, 0]) and (D[1, :] == [0, 4])
 
     result_matrix = A.multiply(D)
-    print(result_matrix)
 
     assert (result_matrix[0, :] == [6, 4]) and (result_matrix[1, :] == [4, 4])
 
-    # TODO: ValueError
+    with pytest.raises(ValueError):
+        A = dig_matrix(2, 3)
+        D = dig_matrix(3, 4)
+
+        result_matrix = A.multiply(D)
+
+        assert result_matrix
