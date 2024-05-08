@@ -1,4 +1,4 @@
-#### Arc - no extra dependencies
+#### Arc
 
 Preview:
 
