@@ -38,7 +38,6 @@ Arc
 ```python3
 >>> from arc.dia import dig_matrix
 >>> from arc.data_types import int8
->>> from arc.data_types import int8
 >>> A = dig_matrix(3,4,dtype=int8).toarray()
 >>> print(A)
 >>> array ([[0, 0, 0, 0],
