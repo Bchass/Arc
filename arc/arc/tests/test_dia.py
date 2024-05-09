@@ -73,3 +73,23 @@ def test_multiplication():
         result_matrix = A.multiply(D)
 
         assert result_matrix
+
+
+def test_shape():
+
+    A = dig_matrix(2, 2)
+    assert A.get_shape() == 2
+
+
+# TODO: This ugly. Need to look at toarray further and most likely refactor
+def test_toarray():
+
+    A = dig_matrix(3, 4).toarray()
+    expected_matrix = """array([
+    [0, 0, 0, 0],
+    [0, 0, 0, 0], 
+    [0, 0, 0, 0]])"""
+    actual_str = ''.join(str(A).split())
+    expected_str = ''.join(expected_matrix.split())
+
+    assert actual_str == expected_str
