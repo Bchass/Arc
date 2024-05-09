@@ -71,8 +71,6 @@ class dig_matrix:
     def get_shape(self):
         return self.shape
 
-    #TODO: Fix spacing
-
     def toarray(self):
 
         array = []
@@ -83,6 +81,6 @@ class dig_matrix:
                 dtype_str = self.dtype.__name__
             else:
                 dtype_str = str(self.dtype)
-            return 'array ([' + ',\n'.join(str(row) for row in array) + ']' + ", dtype=" + dtype_str + ")"
+            return '[' + ',\n'.join(str(row) for row in array) + ']' + ", dtype=" + dtype_str + ")"
         else:
-            return 'array([' + ',\n'.join(str(row) for row in array) + '])'
+            return '[' + ',\n'.join(str(row) for row in array) + ']'

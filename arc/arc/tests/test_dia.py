@@ -81,14 +81,13 @@ def test_shape():
     assert A.get_shape() == 2
 
 
-# TODO: This ugly. Need to look at toarray further and most likely refactor
 def test_toarray():
 
     A = dig_matrix(3, 4).toarray()
-    expected_matrix = """array([
-    [0, 0, 0, 0],
+    expected_matrix = """
+    [[0, 0, 0, 0],
     [0, 0, 0, 0], 
-    [0, 0, 0, 0]])"""
+    [0, 0, 0, 0]]"""
     actual_str = ''.join(str(A).split())
     expected_str = ''.join(expected_matrix.split())
 
