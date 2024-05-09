@@ -67,3 +67,22 @@ class dig_matrix:
                     result.matrix[i][j] += self.matrix[i][k] * \
                         other.matrix[k][j]
         return result
+
+    def get_shape(self):
+        return self.shape
+
+    # TODO: Fix spacing
+
+    def toarray(self):
+
+        array = []
+        for row in self.matrix:
+            array.append(row[:])
+        if self.dtype is not None:
+            if isinstance(self.dtype, type):
+                dtype_str = self.dtype.__name__
+            else:
+                dtype_str = str(self.dtype)
+            return 'array ([' + ',\n'.join(str(row) for row in array) + '])' + ", dtype=" + dtype_str
+        else:
+            return 'array([' + ',\n'.join(str(row) for row in array) + '])'
