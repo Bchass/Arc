@@ -40,9 +40,9 @@ Arc
 >>> from arc.data_types import int8
 >>> A = dig_matrix(3,4,dtype=int8).toarray()
 >>> print(A)
->>> array ([[0, 0, 0, 0],
-            [0, 0, 0, 0],
-            [0, 0, 0, 0]], dtype=int8)
+>>> array([[0, 0, 0, 0],
+           [0, 0, 0, 0],
+           [0, 0, 0, 0]], dtype=int8)
 ```
 
 Results:
