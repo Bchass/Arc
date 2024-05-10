@@ -3,13 +3,13 @@ from . import data_types
 
 class dig_matrix:
 
-    def helper(self, size, shape):
+    def matrix_ops(self, size, shape):
         if shape is None:
-            self.helper(size, size)
+            self.matrix_ops(size, size)
         else:
             if shape == 0:
                 return
-            self.helper(size, shape - 1)
+            self.matrix_ops(size, shape - 1)
 
             self.matrix = [[0] * shape for _ in range(size)]
 
