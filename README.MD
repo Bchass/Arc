@@ -73,8 +73,8 @@ Scipy implementation time: 0.15088954102247953
 Arc
 ```
 Profiling Arc implementation:
-Arc implementation time: 0.5299890839960426
-         205027 function calls (205026 primitive calls) in 0.530 seconds
+Arc implementation time: 0.38364399992860854
+         105027 function calls (105026 primitive calls) in 0.384 seconds
 ```
 
 SciPy

@@ -85,9 +85,7 @@ class dig_matrix:
 
     def toarray(self):
 
-        array = []
-        for row in self.matrix:
-            array.append(row[:])
+        array = self.matrix[:]
         if self.dtype is not None:
             if isinstance(self.dtype, type):
                 dtype_str = self.dtype.__name__
