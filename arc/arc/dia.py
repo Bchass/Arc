@@ -3,22 +3,17 @@ from . import data_types
 
 class dig_matrix:
 
-    def matrix_ops(self, size, shape):
-        if shape is None:
-            shape = size
-        else:
-            self.matrix = [[0] * shape for _ in range(size)]
-
     def __init__(self, size, shape=None, dtype=None, other=None):
         self.size = size
         self.shape = shape
         self.dtype = dtype
         self.other = other
+
         if shape is None:
-            self.matrix = None
+            shape = size
         else:
             if dtype is not None:
-                # start off with 0's for faster creation
+                # speed up with creation
                 self.matrix = [[0] * shape] * size
             else:
                 self.matrix = [[0] * shape for _ in range(size)]
@@ -83,6 +78,9 @@ class dig_matrix:
 
     def get_shape(self):
         return self.shape
+
+    def get_size(self):
+        return self.size
 
 # TODO: Fix format
     def toarray(self):
