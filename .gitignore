@@ -1,3 +1,4 @@
 arc/.DS_Store
 arc/script.py
 arc/test_script.py
+arc/benchmark.py
