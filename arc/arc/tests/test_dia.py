@@ -81,6 +81,12 @@ def test_shape():
     assert A.get_shape() == 2
 
 
+def test_size():
+
+    A = dig_matrix(2, 2)
+    assert A.get_size() == 2
+
+
 def test_toarray():
 
     A = dig_matrix(3, 4).toarray()
