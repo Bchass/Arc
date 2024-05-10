@@ -5,12 +5,8 @@ class dig_matrix:
 
     def matrix_ops(self, size, shape):
         if shape is None:
-            self.matrix_ops(size, size)
+            shape = size
         else:
-            if shape == 0:
-                return
-            self.matrix_ops(size, shape - 1)
-
             self.matrix = [[0] * shape for _ in range(size)]
 
     def __init__(self, size, shape=None, dtype=None, other=None):
@@ -45,6 +41,11 @@ class dig_matrix:
                 ["[" + ", ".join(map(str, row)) + "]" for row in self.matrix])
 
         return matrix_str
+
+    def __repr__(self):
+        if self.matrix is None:
+            return "None"
+        return str(self)
 
     def set_element(self, row, col, value):
 
@@ -83,6 +84,7 @@ class dig_matrix:
     def get_shape(self):
         return self.shape
 
+# TODO: Fix format
     def toarray(self):
 
         array = self.matrix[:]
