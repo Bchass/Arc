@@ -23,18 +23,10 @@ Arc
 [6, 4]
 [4, 4]
 ```
+---
 
-#### Arc is faster with a basic example. The goal is to beat SciPy at a larger scale like 100x100
+#### Arc is going to be faster with a basic example due to less calls and time. 
 
-SciPy
-```python3
->>> import numpy as np
->>> from scipy.sparse import dia_matrix
->>> dia_matrix((3, 4), dtype=np.int8).toarray()
->>> array([[0, 0, 0, 0],
-           [0, 0, 0, 0],
-           [0, 0, 0, 0]], dtype=int8)
-```
 
 Arc
 ```python3
@@ -47,8 +39,48 @@ Arc
            [0, 0, 0, 0]], dtype=int8)
 ```
 
-Results:
+Profiling:
+
 ```
-Scipy: 0.0332047080155462
-Arc: 0.0021055841352790594
+Profiling Arc implementation:
+Arc implementation time: 0.0036827081348747015
+         11027 function calls (11026 primitive calls) in 0.004 seconds
+         
+```
+
+SciPy
+```python3
+>>> import numpy as np
+>>> from scipy.sparse import dia_matrix
+>>> dia_matrix((3, 4), dtype=np.int8).toarray()
+>>> array([[0, 0, 0, 0],
+           [0, 0, 0, 0],
+           [0, 0, 0, 0]], dtype=int8)
+```
+
+Profiling:
+
+```
+Profiling Scipy implementation:
+Scipy implementation time: 0.15088954102247953
+         266981 function calls (264664 primitive calls) in 0.241 seconds
+```
+
+---
+
+### The goal is to beat SciPy at a larger scale like 100x100.
+
+Arc
+```
+Profiling Arc implementation:
+Arc implementation time: 0.5299890839960426
+         205027 function calls (205026 primitive calls) in 0.530 seconds
+```
+
+SciPy
+
+```
+Profiling Scipy implementation:
+Scipy implementation time: 0.10029954207129776
+         266981 function calls (264664 primitive calls) in 0.277 seconds
 ```
