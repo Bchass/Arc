@@ -1,4 +1,6 @@
-### Arc
+<h1 align="center">
+Arc
+</h1>
 
 #### Example:
 
@@ -22,7 +24,7 @@
 [4, 4]
 ```
 
-#### Make Arc faster:
+#### Arc is faster with a basic example. The goal is to beat SciPy at a larger scale like 100x100
 
 SciPy
 ```python3
@@ -47,6 +49,6 @@ Arc
 
 Results:
 ```
-Scipy: 0.03981670900247991
-Arc: 0.0021937908604741096
+Scipy: 0.0332047080155462
+Arc: 0.0021055841352790594
 ```
