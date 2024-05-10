@@ -3,23 +3,33 @@ from . import data_types
 
 class dig_matrix:
 
+    def helper(self, size, shape):
+        if shape is None:
+            self.helper(size, size)
+        else:
+            if shape == 0:
+                return
+            self.helper(size, shape - 1)
+
+            self.matrix = [[0] * shape for _ in range(size)]
+
     def __init__(self, size, shape=None, dtype=None, other=None):
         self.size = size
         self.shape = shape
         self.dtype = dtype
         self.other = other
-        if dtype is None:
-            if shape is None:
-                self.matrix = [[0] * size for _ in range(size)]
+        if shape is None:
+            self.matrix = None
+        else:
+            if dtype is not None:
+                # start off with 0's for faster creation
+                self.matrix = [[0] * shape] * size
             else:
                 self.matrix = [[0] * shape for _ in range(size)]
-        else:
-            self.matrix = [[0] * shape for _ in range(size)]
 
     def __call__(self):
         return self
 
-    # TODO: figure out how to print with dig_matrix(5,3,dtpye=Int8) directly
     def __str__(self):
 
         if self.dtype is not None:
@@ -27,13 +37,14 @@ class dig_matrix:
                 dtype_str = self.dtype.__name__
             else:
                 dtype_str = str(self.dtype)
-            return "\n".join(
-                "[" + ", ".join(str(elem) for elem in row) + "]"for row in self.matrix
-            ) + " , dtype=" + dtype_str
+            matrix_str = "\n".join(
+                ["[" + ", ".join(map(str, row)) + "]" for row in self.matrix])
+            matrix_str = matrix_str + ", dtype=" + dtype_str
         else:
-            return "\n".join(
-                "[" + ", ".join(str(elem) for elem in row) + "]"for row in self.matrix
-            )
+            matrix_str = "\n".join(
+                ["[" + ", ".join(map(str, row)) + "]" for row in self.matrix])
+
+        return matrix_str
 
     def set_element(self, row, col, value):
 
@@ -61,6 +72,7 @@ class dig_matrix:
                 "Matrices must be of the same size for multiplication")
 
         result = dig_matrix(self.size)
+        result.matrix = [[0] * self.size for _ in range(self.size)]
         for i in range(self.size):
             for j in range(self.size):
                 for k in range(self.size):
