@@ -87,10 +87,7 @@ class dig_matrix:
 
         array = self.matrix[:]
         if self.dtype is not None:
-            if isinstance(self.dtype, type):
-                dtype_str = self.dtype.__name__
-            else:
-                dtype_str = str(self.dtype)
-            return '[' + ',\n'.join(str(row) for row in array) + ']' + ", dtype=" + dtype_str + ")"
+            dtype_str = self.dtype.__name__
+            return [row[:] for row in array], dtype_str
         else:
-            return '[' + ',\n'.join(str(row) for row in array) + ']'
+            return [row[:] for row in array]
