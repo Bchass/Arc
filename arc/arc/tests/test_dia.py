@@ -87,6 +87,7 @@ def test_size():
     assert A.get_size() == 2
 
 
+# TODO: Update this after format is fixed
 def test_toarray():
 
     A = dig_matrix(3, 4).toarray()
