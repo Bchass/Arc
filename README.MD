@@ -25,7 +25,7 @@ Arc
 
 ---
 
-#### Small victory of beating Scipy at 100x100. Still more optimization to do for something like 1000x1000.
+#### Arc beating Scipy at 100x100 diagonal_matrix as the benchmark. Arc starts to fall right behind at 400x400.
 
 Arc
 ```
@@ -34,12 +34,25 @@ Arc implementation time: 0.02692158310674131
          2027 function calls (2026 primitive calls) in 0.027 seconds
 ```
 
+```python3
+
+from arc.dia import dig_matrix
+from arc.data_types import int8
+dig_matrix(400, 400, dtype=int8).toarray()
+```
+
 SciPy
 
 ```
 Profiling Scipy implementation:
 Scipy implementation time: 0.17151737492531538
          267947 function calls (265630 primitive calls) in 0.259 seconds
+```
+
+```python3
+import numpy as np
+from scipy.sparse import dia_matrix
+dia_matrix((400, 400), dtype=np.int8).toarray()
 ```
 
 ---
