@@ -24,10 +24,7 @@ class dig_matrix:
     def __str__(self):
 
         if self.dtype is not None:
-            if isinstance(self.dtype, type):
-                dtype_str = self.dtype.__name__
-            else:
-                dtype_str = str(self.dtype)
+            dtype_str = self.dtype.__name__
             matrix_str = "\n".join(
                 ["[" + ", ".join(map(str, row)) + "]" for row in self.matrix])
             matrix_str = matrix_str + ", dtype=" + dtype_str
@@ -61,6 +58,12 @@ class dig_matrix:
             return self.matrix[row][col]
         raise IndexError("Unsupported index type")
 
+    def get_shape(self):
+        return self.shape
+
+    def get_size(self):
+        return self.size
+
     def multiply(self, other):
 
         if self.size != other.size:
@@ -75,12 +78,6 @@ class dig_matrix:
                     result.matrix[i][j] += self.matrix[i][k] * \
                         other.matrix[k][j]
         return result
-
-    def get_shape(self):
-        return self.shape
-
-    def get_size(self):
-        return self.size
 
 # TODO: Fix format
     def toarray(self):
