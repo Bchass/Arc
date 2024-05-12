@@ -25,7 +25,7 @@ Arc
 
 ---
 
-#### Arc beating Scipy at 100x100 diagonal_matrix as the benchmark. Arc starts to fall right behind at 400x400.
+#### Arc beating Scipy at 400x400 diagonal_matrix as the benchmark. Arc starts to fall right behind at 500x500.
 
 Arc
 ```
