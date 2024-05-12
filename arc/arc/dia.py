@@ -44,7 +44,7 @@ class dig_matrix:
         if row < 0 or row >= self.size or col < 0 or col >= self.size:
             raise ValueError("Index out of range")
             # support left to right and right to left
-        if row == col or row + col == self.size - 1:
+        if row != col or row + col == self.size - 1 or row <= col or col <= row:
             self.matrix[row][col] = value
         else:
             raise ValueError("Can only set elements on diagonal")
@@ -66,15 +66,11 @@ class dig_matrix:
 
     def multiply(self, other):
 
-        if self.size != other.size:
-            raise ValueError(
-                "Matrices must be of the same size for multiplication")
-
-        result = dig_matrix(self.size)
-        result.matrix = [[0] * self.size for _ in range(self.size)]
+        result = dig_matrix(self.size, other.size)
+        result.matrix = [[0] * other.shape for _ in range(self.size)]
         for i in range(self.size):
-            for j in range(self.size):
-                for k in range(self.size):
+            for j in range(other.size):
+                for k in range(self.shape):
                     result.matrix[i][j] += self.matrix[i][k] * \
                         other.matrix[k][j]
         return result
