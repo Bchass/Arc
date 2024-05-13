@@ -27,6 +27,12 @@ def test_set_element():
 
     assert test_input_matrix.matrix == expected_matrix
 
+    with pytest.raises(ValueError):
+        test_set_element = dig_matrix(3, 4)
+        test_set_element.set_element(1, 0, 0)
+    with pytest.raises(ValueError):
+        test_set_element.set_element(3, 3, 0)
+
 
 def test_slice():
 
@@ -59,6 +65,20 @@ def test_multiplication():
     result_matrix = A.multiply(D)
 
     assert (result_matrix[0, :] == [6, 4]) and (result_matrix[1, :] == [4, 4])
+
+    with pytest.raises(ValueError):
+        A = dig_matrix(2, 3)
+        D = dig_matrix(3, 4)
+
+        result_matrix = A.multiply(D)
+
+        assert result_matrix
+
+    with pytest.raises(ValueError):
+        A = dig_matrix(3, 4)
+        D = dig_matrix(3, 4)
+
+        result_matrix = A.multiply(D)
 
 
 def test_shape():
