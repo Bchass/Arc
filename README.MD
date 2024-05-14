@@ -25,7 +25,7 @@ Arc
 
 ---
 
-#### Arc beating Scipy at 400x400 diagonal_matrix as the baseline benchmark. Arc starts to fall right behind at 500x500.
+#### Baseline Benchmark
 
 Arc
 ```
