@@ -25,7 +25,7 @@ Arc
 
 ---
 
-#### Baseline Benchmark
+#### Baseline Benchmark:
 
 Arc
 ```
