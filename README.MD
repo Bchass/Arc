@@ -5,15 +5,15 @@ Arc
 #### Example:
 
 ```python3
->>> from arc.dia import dig_matrix
+>>> from arc.dia import dia_matrix
 
->>> A = dig_matrix(2,2)
+>>> A = dia_matrix(2,2)
 >>> A.set_element(1, 0, 2)
 >>> A.set_element(0, 0, 3)
 >>> A.set_element(1, 1, 1)
 >>> A.set_element(0, 1, 1)
 
->>> D = dig_matrix(2, 2)
+>>> D = dia_matrix(2, 2)
 >>> D.set_element(0, 0, 2)
 >>> D.set_element(1, 1, 4)
 
@@ -36,9 +36,9 @@ Arc implementation time: 0.25261666695587337
 
 ```python3
 
-from arc.dia import dig_matrix
+from arc.dia import dia_matrix
 from arc.data_types import int8
-dig_matrix(400, 400, dtype=int8).toarray()
+dia_matrix(400, 400, dtype=int8).toarray()
 ```
 
 SciPy
