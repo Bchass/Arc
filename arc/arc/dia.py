@@ -1,7 +1,7 @@
 from . import data_types
 
 
-class dig_matrix:
+class dia_matrix:
 
     def __init__(self, size, shape=None, dtype=None, other=None):
         self.size = size
@@ -74,16 +74,73 @@ class dig_matrix:
             raise ValueError(
                 "Number of columns in the first matrix does not equal to the number of rows in the second matrix")
 
-        result = dig_matrix(self.size)
+        result = dia_matrix(self.size)
         result.matrix = [[0] * self.size for _ in range(self.size)]
         for i in range(self.size):
             for j in range(self.size):
-                for k in range(self.shape):
+                for k in range(self.size):
                     result.matrix[i][j] += self.matrix[i][k] * \
                         other.matrix[k][j]
         return result
 
+    def add(self, other):
+
+        if self.size != other.size:
+            raise ValueError(
+                "Matrices must be of the same size for addition")
+
+        if self.size != other.shape:
+            raise ValueError(
+                "Number of columns in the first matrix does not equal to the number of rows in the second matrix")
+
+        result = dia_matrix(self.size)
+        result.matrix = [[0] * self.size for _ in range(self.size)]
+        for i in range(self.size):
+            for j in range(self.size):
+                result.matrix[i][j] = self.matrix[i][j] + \
+                    other.matrix[i][j]
+        return result
+
+    def subtract(self, other):
+
+        if self.size != other.size:
+            raise ValueError(
+                "Matrices must be of the same size for subtraction")
+
+        for i in range(self.size):
+            if self.matrix[i][i] < 0 or other.matrix[i][i] < 0:
+                raise ValueError(
+                    "Positive definite matrix cannot have negative diagonal elements")
+
+        result = dia_matrix(self.size)
+        result.matrix = [[0] * self.size for _ in range(self.size)]
+        for i in range(self.size):
+            for j in range(self.size):
+                result.matrix[i][j] = self.matrix[i][j] - other.matrix[i][j]
+        return result
+
+    # TODO: Needs more work
+    def divide(self, other):
+
+        if self.size != other.size:
+            raise ValueError(
+                "Matrices must be of the same size for division")
+
+        if self.size != other.shape:
+            raise ValueError(
+                "Number of columns in the first matrix does not equal to the number of rows in the second matrix")
+
+        result = dia_matrix(self.size)
+        result.matrix = [[0] * self.size for _ in range(self.size)]
+        for i in range(self.size):
+            for j in range(self.size):
+                if other.matrix[i][j] == 0:
+                    raise ValueError("Division by zeros encountered")
+                result.matrix[i][j] = self.matrix[i][j] // other.matrix[i][j]
+        return result
+
 # TODO: Fix format
+
     def toarray(self):
 
         array = self.matrix[:]
