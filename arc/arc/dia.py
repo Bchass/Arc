@@ -143,8 +143,9 @@ class dia_matrix:
 
     def toarray(self):
 
+        array = self.matrix[:]
         if self.dtype is not None:
             dtype_str = self.dtype.__name__
-            return [row[:] for row in self.matrix], dtype_str
+            return [row[:] for row in array], dtype_str
         else:
-            return [row[:] for row in self.matrix]
+            return [row[:] for row in array]
