@@ -1,5 +1,7 @@
 from . import data_types
 
+# TODO: Add offsets and data option
+
 
 class dia_matrix:
 
