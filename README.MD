@@ -62,4 +62,4 @@ dia_matrix((400, 400), dtype=np.int8).toarray()
 ---
 
 ###  Roadmap:
-Test cases can be enhanced; additional classes will be offered; `dia_matrix` needs a little more work; and `csr_matrix` is a work in progress that will eventually require a refactor. BLAS installed on macOS by default: https://developer.apple.com/documentation/accelerate/blas/. Figure out how to call it directly.
+Test cases can be enhanced; additional classes will be offered; `dia_matrix` needs a little more work; and `csr_matrix` is a work in progress that will eventually require a refactor. BLAS is installed on `macOS` by default: https://developer.apple.com/documentation/accelerate/blas/. Figure out how to call it directly.
