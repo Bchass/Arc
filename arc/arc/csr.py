@@ -14,13 +14,14 @@ class csr_matrix:
 
             for i in range(len(data)):
                 row_index = i // self.cols
-                col_index = row[i]
+                col_index = row_index
                 self.matrix[row_index][col_index] = data[i]
                 '''
                 if col_index == data[i]:
                     raise IndexError("Row elements cannot match data elements")
                 '''
-        if data is not None and row is None:
+
+        elif data is not None and row is None:
             self.matrix = [[0] * self.cols for _ in range(self.rows)]
 
             for i in range(len(data)):
