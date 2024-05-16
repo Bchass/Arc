@@ -16,11 +16,20 @@ class csr_matrix:
                 row_index = i // self.cols
                 col_index = row[i]
                 self.matrix[row_index][col_index] = data[i]
+                '''
                 if col_index == data[i]:
                     raise IndexError("Row elements cannot match data elements")
+                '''
+        if data is not None and row is None:
+            self.matrix = [[0] * self.cols for _ in range(self.rows)]
+
+            for i in range(len(data)):
+                row_index = i // self.cols
+                col_index = i % self.cols
+                self.matrix[row_index][col_index] = data[i]
 
         elif rows is not None and cols is not None and data is None:
-            self.matrix = [[0] * rows for _ in range(cols)]
+            self.matrix = [[0] * cols for _ in range(rows)]
         else:
             self.matrix = []
 
