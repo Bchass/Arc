@@ -3,18 +3,21 @@ from . import data_types
 
 class csr_matrix:
 
-    def __init__(self, rows, cols, dtype=None, data=None):
+    def __init__(self, rows, cols, dtype=None, data=None, row=None):
         self.rows = rows
         self.cols = cols
         self.dtype = dtype
         self.matrix = []
 
-        if data is not None:
+        if data is not None and row is not None:
             self.matrix = [[0] * self.cols for _ in range(self.rows)]
 
-            # figure out placement
-            for row, i in enumerate(data):
-                self.matrix[row // self.cols][row % self.cols] = row + 1
+            for i in range(len(data)):
+                row_index = i // self.cols
+                col_index = row[i]
+                self.matrix[row_index][col_index] = data[i]
+                if col_index == data[i]:
+                    raise IndexError("Row elements cannot match data elements")
 
         elif rows is not None and cols is not None and data is None:
             self.matrix = [[0] * rows for _ in range(cols)]
@@ -26,10 +29,10 @@ class csr_matrix:
 
     def __str__(self):
         if self.dtype is not None:
-             dtype_str = self.dtype.__name__
-             matrix_str = "\n".join(
+            # dtype_str = self.dtype.__name__
+            matrix_str = "\n".join(
                 ["[" + ", ".join(map(str, row)) + "]" for row in self.matrix])
-             matrix_str = matrix_str + ", dtype=" + dtype_str
+            # matrix_str = matrix_str + ", dtype=" + dtype_str
         else:
             matrix_str = "\n".join(
                 ["[" + ", ".join(map(str, row)) + "]" for row in self.matrix])
