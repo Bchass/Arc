@@ -2,7 +2,11 @@
 Arc
 </h1>
 
-#### Example:
+In the realm of scientific computing, efficiency and simplicity are often paramount. Inspired by the principles of projects like SciPy, Arc emerges as a lightweight alternative, meticulously crafted to without the burden of extra dependencies.
+
+---
+
+#### Basic usage:
 
 ```python3
 >>> from arc.dia import dia_matrix
@@ -58,6 +62,4 @@ dia_matrix((400, 400), dtype=np.int8).toarray()
 ---
 
 ###  Roadmap:
-- ✨optimize further ✨
-- Implement csr_matrix
-- Refactor test cases
+Test cases can be enhanced; additional classes will be offered; `dia_matrix` needs a little more work; and `csr_matrix` is a work in progress that will eventually require a refactor.
