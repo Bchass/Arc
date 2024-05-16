@@ -13,8 +13,8 @@ class csr_matrix:
             self.matrix = [[0] * self.cols for _ in range(self.rows)]
 
             for i in range(len(data)):
-                row_index = i // self.cols
-                col_index = row_index
+                row_index = row[i]
+                col_index = i % self.cols
                 self.matrix[row_index][col_index] = data[i]
                 '''
                 if col_index == data[i]:
