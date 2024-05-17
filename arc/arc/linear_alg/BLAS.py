@@ -1,8 +1,16 @@
 import ctypes
 
+'''
+These are LEVEL 1 functions: https://www.netlib.org/blas/#_history
+For implementation: https://developer.apple.com/documentation/accelerate
+'''
+
+
 class arc_BLAS:
+
     @staticmethod
-    def dot_product(x, y):
+    def sdot(x, y):
+
         # Load the Accelerate framework
         libblas = ctypes.CDLL(
             '/System/Library/Frameworks/Accelerate.framework/Versions/Current/Frameworks/vecLib.framework/Versions/Current/libBLAS.dylib')
@@ -10,6 +18,7 @@ class arc_BLAS:
         # Arguments and return types
         libblas.cblas_sdot.argtypes = [ctypes.c_int, ctypes.POINTER(
             ctypes.c_float), ctypes.c_int, ctypes.POINTER(ctypes.c_float), ctypes.c_int]
+
         libblas.cblas_sdot.restype = ctypes.c_float
 
         n = len(x)
@@ -17,4 +26,23 @@ class arc_BLAS:
         x_arr = (ctypes.c_float * n)(*x)
         y_arr = (ctypes.c_float * n)(*y)
         result = libblas.cblas_sdot(n, x_arr, 1, y_arr, 1)
-        return result
+        rounded = round(result, 2)
+        return rounded
+
+    @staticmethod
+    def sdsdot(x, y):
+        libblas = ctypes.CDLL(
+            '/System/Library/Frameworks/Accelerate.framework/Versions/Current/Frameworks/vecLib.framework/Versions/Current/libBLAS.dylib')
+
+        libblas.cblas_sdsdot.argtypes = [ctypes.c_int, ctypes.POINTER(
+            ctypes.c_double), ctypes.c_int, ctypes.POINTER(ctypes.c_double), ctypes.c_int]
+
+        libblas.cblas_sdsdot.restype = ctypes.c_double
+
+        n = len(x)
+        x_arr = (ctypes.c_double * n)(*x)
+        y_arr = (ctypes.c_double * n)(*y)
+        alpha = [a * b for a, b in zip(x, y)]
+        result = libblas.cblas_sdsdot(n, x_arr, 1, y_arr, 1) + sum(alpha)
+        rounded = round(result, 2)
+        return rounded
