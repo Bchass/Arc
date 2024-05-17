@@ -49,6 +49,12 @@ class csr_matrix:
             return "None"
         return str(self)
 
+    def get_rows(self):
+        return self.rows
+
+    def get_cols(self):
+        return self.cols
+
     def toarray(self):
 
         array = self.matrix[:]
