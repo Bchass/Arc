@@ -43,7 +43,7 @@ class arc_BLAS:
         x_arr = (ctypes.c_double * n)(*x)
         y_arr = (ctypes.c_double * n)(*y)
         alpha = [a * b for a, b in zip(x, y)]
-        result = libblas.cblas_sdsdot(n, x_arr, 1, y_arr, 1) + sum(alpha)
+        result = libblas.cblas_sdsdot(ctypes.c_int(n), x_arr, 1, y_arr, 1) + sum(alpha)
         rounded = round(result, 2)
         return rounded
 
