@@ -3,25 +3,21 @@ from . import data_types
 
 class csr_matrix:
 
-    def __init__(self, rows, cols, dtype=None, data=None, row=None):
+    def __init__(self, rows, cols, dtype=None, data=None, row=None, col=None):
         self.rows = rows
         self.cols = cols
         self.dtype = dtype
         self.matrix = []
 
-        if data is not None and row is not None:
+        if data is not None and row is not None and col is not None:
             self.matrix = [[0] * self.cols for _ in range(self.rows)]
 
             for i in range(len(data)):
                 row_index = row[i]
-                col_index = i % self.cols
+                col_index = col[i]
                 self.matrix[row_index][col_index] = data[i]
-                '''
-                if col_index == data[i]:
-                    raise IndexError("Row elements cannot match data elements")
-                '''
 
-        elif data is not None and row is None:
+        elif data is not None and row is None and col is None:
             self.matrix = [[0] * self.cols for _ in range(self.rows)]
 
             for i in range(len(data)):
