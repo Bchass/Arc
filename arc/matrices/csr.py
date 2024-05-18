@@ -46,6 +46,13 @@ class csr_matrix:
                 ["[" + ", ".join(map(str, row)) + "]" for row in self.matrix])
         return str(matrix_str)
 
+    def __getitem__(self, key):
+        if isinstance(key, tuple) and len(key) == 2:
+            row, col = key
+            return self.matrix[row][col]
+        else:
+            raise TypeError("Indexing csr_matrix requires a tuple (row, col)")
+
     def __repr__(self):
         if self.matrix is None:
             return "None"
@@ -56,6 +63,9 @@ class csr_matrix:
 
     def get_cols(self):
         return self.cols
+
+    def get_size(self):
+        return self.rows * self.cols
 
     def toarray(self):
 
@@ -74,3 +84,16 @@ class csr_matrix:
                 if element != 0:
                     count += 1
         return count
+
+    def multiply(self, other):
+
+        result = csr_matrix(self.rows, self.cols)
+        result.matrix = [[0] * self.cols for _ in range(self.rows)]
+        for i in range(self.rows):
+            for j in range(other.cols):
+                for k in range(self.cols):
+                    if other.matrix[k][j] == 0:
+                        raise ValueError("Multiplication by zeros encountered")
+                    result.matrix[i][j] += self.matrix[i][k] * \
+                        other.matrix[k][j]
+        return result
