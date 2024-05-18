@@ -9,22 +9,23 @@ In the realm of scientific computing, efficiency and simplicity are often paramo
 #### Basic usage:
 
 ```python3
->>> from arc.dia import dia_matrix
+>>> from arc.matrices import csr_matrix
 
->>> A = dia_matrix(2,2)
->>> A.set_element(1, 0, 2)
->>> A.set_element(0, 0, 3)
->>> A.set_element(1, 1, 1)
->>> A.set_element(0, 1, 1)
+>>> row1 = [0, 0, 1, 1, 2, 2]
+>>> col1 = [0, 1, 0, 1, 0, 1]
+>>> data1 = [1, 2, 3, 4, 5, 6]
+>>> A = csr_matrix(3, 2, data=data1, row=row1, col=col1)
 
->>> D = dia_matrix(2, 2)
->>> D.set_element(0, 0, 2)
->>> D.set_element(1, 1, 4)
+>>> row2 = [0, 0, 1, 1]
+>>> col2 = [0, 1, 0, 1]
+>>> data2 = [7, 8, 9, 10]
+>>> D = csr_matrix(2, 2, data=data2, row=row2, col=col2)
 
 >>> A.multiply(D)
 
-[6, 4]
-[4, 4]
+[25, 28]
+[57, 64]
+[89, 100]
 ```
 
 ---
