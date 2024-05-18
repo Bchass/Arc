@@ -36,6 +36,15 @@ class dia_matrix:
 
         return matrix_str
 
+    def __getitem__(self, index):
+        if isinstance(index, tuple):
+            row, col = index
+            if isinstance(row, int) and isinstance(col, slice):
+                if row < 0 and row >= self.size:
+                    raise IndexError("Index out of bounds")
+            return self.matrix[row][col]
+        raise IndexError("Unsupported index type")
+
     def __repr__(self):
         if self.matrix is None:
             return "None"
@@ -50,15 +59,6 @@ class dia_matrix:
             self.matrix[row][col] = value
         else:
             raise ValueError("Can only set elements on diagonal")
-
-    def __getitem__(self, index):
-        if isinstance(index, tuple):
-            row, col = index
-            if isinstance(row, int) and isinstance(col, slice):
-                if row < 0 and row >= self.size:
-                    raise IndexError("Index out of bounds")
-            return self.matrix[row][col]
-        raise IndexError("Unsupported index type")
 
     def get_shape(self):
         return self.shape
