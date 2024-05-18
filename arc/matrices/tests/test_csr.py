@@ -28,3 +28,14 @@ def test_data():
     expected_matrix = [[1, 2, 3], [4, 5, 6], [0, 0, 0]]
 
     assert test_input_matrix.matrix == expected_matrix
+
+
+def test_nnz():
+    row = [0, 0, 1, 2, 2, 2]
+    col = [0, 2, 2, 0, 1, 2]
+    data = [1, 2, 3, 4, 5, 6]
+    test_input_matrix = csr_matrix(3, 3, data=data, row=row, col=col).nnz()
+
+    expected_result = 6
+
+    assert test_input_matrix == expected_result

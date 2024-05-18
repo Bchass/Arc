@@ -65,3 +65,12 @@ class csr_matrix:
             return [row[:] for row in array], dtype_str
         else:
             return [row[:] for row in array]
+
+    def nnz(self):
+
+        count = 0
+        for row in self.matrix:
+            for element in row:
+                if element != 0:
+                    count += 1
+        return count
