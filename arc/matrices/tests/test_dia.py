@@ -1,6 +1,6 @@
 import pytest
-from arc.arc.dia import dia_matrix
-from arc.arc.data_types import *
+from arc.matrices import dia_matrix
+from arc.matrices.data_types import *
 
 # TODO: Need to figure out a better example with dtype
 # TODO: Refactor test cases

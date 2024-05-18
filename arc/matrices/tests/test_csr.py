@@ -1,6 +1,6 @@
 import pytest
-from arc.arc.csr import csr_matrix
-from arc.arc.data_types import *
+from arc.matrices import csr_matrix
+from arc.matrices import data_types
 
 
 def test_default_constructor():

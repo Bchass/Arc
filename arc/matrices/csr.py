@@ -1,5 +1,7 @@
 from . import data_types
 
+# TODO: Anything 100x100 and it falls behind Scipy in the benchmark
+
 
 class csr_matrix:
 

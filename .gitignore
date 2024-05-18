@@ -1,7 +1,6 @@
 arc/.DS_Store
 arc/script.py
 arc/test_script.py
-arc/benchmark.py
 arc/.coverage
 arc/__pycache__/__init__.cpython-310.pyc
 arc/arc/__pycache__/__init__.cpython-310.pyc
