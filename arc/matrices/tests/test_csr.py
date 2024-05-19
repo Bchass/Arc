@@ -13,18 +13,15 @@ def test_default_constructor():
 
 
 def test_all():
-    row = [0, 0, 1, 2, 2, 2]
-    col = [0, 2, 2, 0, 1, 2]
-    data = [1, 2, 3, 4, 5, 6]
-    test_input_matrix = csr_matrix(3, 3, data=data, row=row, col=col)
+    test_input_matrix = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[
+                                   0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2])
     expected_matrix = [[1, 0, 2], [0, 0, 3], [4, 5, 6]]
 
     assert test_input_matrix.matrix == expected_matrix
 
 
 def test_data():
-    data = [1, 2, 3, 4, 5, 6]
-    test_input_matrix = csr_matrix(3, 3, data=data)
+    test_input_matrix = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6])
     expected_matrix = [[1, 2, 3], [4, 5, 6], [0, 0, 0]]
 
     assert test_input_matrix.matrix == expected_matrix
@@ -55,10 +52,8 @@ def test_get_size():
 
 
 def test_nnz():
-    row = [0, 0, 1, 2, 2, 2]
-    col = [0, 2, 2, 0, 1, 2]
-    data = [1, 2, 3, 4, 5, 6]
-    test_input_matrix = csr_matrix(3, 3, data=data, row=row, col=col).nnz()
+    test_input_matrix = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[
+                                   0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2]).nnz()
 
     expected_result = 6
 
@@ -66,15 +61,11 @@ def test_nnz():
 
 
 def test_multiplication():
-    row1 = [0, 0, 1, 1, 2, 2]
-    col1 = [0, 1, 0, 1, 0, 1]
-    data1 = [1, 2, 3, 4, 5, 6]
-    A = csr_matrix(3, 2, data=data1, row=row1, col=col1)
+    A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[
+                   0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
-    row2 = [0, 0, 1, 1]
-    col2 = [0, 1, 0, 1]
-    data2 = [7, 8, 9, 10]
-    D = csr_matrix(2, 2, data=data2, row=row2, col=col2)
+    D = csr_matrix(2, 2, data=[7, 8, 9, 10], row=[
+                   0, 0, 1, 1], col=[0, 1, 0, 1])
 
     assert (A[0, :] == [1, 2] and (A[1, :] == [3, 4] and (A[2, :] == [5, 6])))
     assert (D[0, :] == [7, 8] and (D[1, :] == [9, 10]))
@@ -92,15 +83,11 @@ def test_multiplication():
 
 
 def test_addition():
-    row1 = [0, 0, 1, 1, 2, 2]
-    col1 = [0, 1, 0, 1, 0, 1]
-    data1 = [1, 2, 3, 4, 5, 6]
-    A = csr_matrix(3, 2, data=data1, row=row1, col=col1)
+    A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[
+                   0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
-    row2 = [0, 0, 1, 1]
-    col2 = [0, 1, 0, 1]
-    data2 = [7, 8, 9, 10]
-    D = csr_matrix(3, 2, data=data2, row=row2, col=col2)
+    D = csr_matrix(3, 2, data=[7, 8, 9, 10], row=[
+                   0, 0, 1, 1], col=[0, 1, 0, 1])
 
     assert (A[0, :] == [1, 2] and (A[1, :] == [3, 4] and (A[2, :] == [5, 6])))
     assert (D[0, :] == [7, 8] and (D[1, :] == [9, 10] and (D[2, :] == [0, 0])))
@@ -118,15 +105,11 @@ def test_addition():
 
 
 def test_subtraction():
-    row1 = [0, 0, 1, 1, 2, 2]
-    col1 = [0, 1, 0, 1, 0, 1]
-    data1 = [1, 2, 3, 4, 5, 6]
-    A = csr_matrix(3, 2, data=data1, row=row1, col=col1)
+    A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[
+                   0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
-    row2 = [0, 0, 1, 1]
-    col2 = [0, 1, 0, 1]
-    data2 = [7, 8, 9, 10]
-    D = csr_matrix(3, 2, data=data2, row=row2, col=col2)
+    D = csr_matrix(3, 2, data=[7, 8, 9, 10], row=[
+                   0, 0, 1, 1], col=[0, 1, 0, 1])
 
     assert (A[0, :] == [1, 2] and (A[1, :] == [3, 4] and (A[2, :] == [5, 6])))
     assert (D[0, :] == [7, 8] and (D[1, :] == [9, 10] and (D[2, :] == [0, 0])))
