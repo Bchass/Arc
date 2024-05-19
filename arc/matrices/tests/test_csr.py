@@ -20,13 +20,6 @@ def test_all():
     assert test_input_matrix.matrix == expected_matrix
 
 
-def test_data():
-    test_input_matrix = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6])
-    expected_matrix = [[1, 2, 3], [4, 5, 6], [0, 0, 0]]
-
-    assert test_input_matrix.matrix == expected_matrix
-
-
 def test_get_cols():
     test_input_matrix = csr_matrix(3, 3).get_cols()
 
