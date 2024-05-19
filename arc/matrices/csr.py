@@ -110,3 +110,16 @@ class csr_matrix:
             for j in range(self.cols):
                 result.matrix[i][j] = self.matrix[i][j] + other.matrix[i][j]
         return result
+
+    def subtract(self, other):
+
+        if self.rows != other.rows or self.cols != other.cols:
+            raise ValueError(
+                "Number of columns in the first matrix does not equal to the number of rows in the second matrix")
+
+        result = csr_matrix(self.rows, self.cols)
+        result.matrix = [[0] * self.cols for _ in range(self.rows)]
+        for i in range(self.rows):
+            for j in range(self.cols):
+                result.matrix[i][j] = self.matrix[i][j] - other.matrix[i][j]
+        return result

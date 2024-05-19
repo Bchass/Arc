@@ -115,3 +115,32 @@ def test_addition():
         D = csr_matrix(3, 2)
 
         result_matrix = A.add(D)
+
+def test_subtraction():
+    row1 = [0, 0, 1, 1, 2, 2]
+    col1 = [0, 1, 0, 1, 0, 1]
+    data1 = [1, 2, 3, 4, 5, 6]
+    A = csr_matrix(3, 2, data=data1, row=row1, col=col1)
+
+    row2 = [0, 0, 1, 1]
+    col2 = [0, 1, 0, 1]
+    data2 = [7, 8, 9, 10]
+    D = csr_matrix(3, 2, data=data2, row=row2, col=col2)
+
+    assert (A[0, :] == [1, 2] and (A[1, :] == [3, 4] and (A[2, :] == [5, 6])))
+    assert (D[0, :] == [7, 8] and (D[1, :] == [9, 10] and (D[2, :] == [0, 0])))
+
+    result_matrix = A.add(D)
+
+    assert (result_matrix[0, :] == [8, 10] and (
+        result_matrix[1, :] == [12, 14] and (result_matrix[2, :] == [5, 6])))
+
+    with pytest.raises(ValueError):
+        A = csr_matrix(2, 2)
+        D = csr_matrix(3, 2)
+
+        result_matrix = A.add(D)
+
+
+
+
