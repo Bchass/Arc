@@ -1,7 +1,5 @@
 from . import data_types
 
-# TODO: Anything 100x100 and it falls behind Scipy in the benchmark
-
 
 class csr_matrix:
 
@@ -9,28 +7,24 @@ class csr_matrix:
         self.rows = rows
         self.cols = cols
         self.dtype = dtype
-        self.matrix = []
+        self.matrix = self.matrix = [[0] * self.cols for _ in range(rows)]
 
-        if data is not None and row is not None and col is not None:
-            self.matrix = [[0] * self.cols for _ in range(self.rows)]
-
-            for i in range(len(data)):
-                row_index = row[i]
-                col_index = col[i]
-                self.matrix[row_index][col_index] = data[i]
-
-        elif data is not None and row is None and col is None:
-            self.matrix = [[0] * self.cols for _ in range(self.rows)]
-
-            for i in range(len(data)):
-                row_index = i // self.cols
-                col_index = i % self.cols
-                self.matrix[row_index][col_index] = data[i]
-
-        elif rows is not None and cols is not None and data is None:
-            self.matrix = [[0] * cols for _ in range(rows)]
-        else:
-            self.matrix = []
+        if data is not None:
+            if row is not None and col is not None:
+                if len(data) != len(row) or len(data) != len(col):
+                    raise ValueError(
+                        "Lengths of data, row, and col must match.")
+                for d, r, c in zip(data, row, col):
+                    if 0 <= r < rows and 0 <= c < cols:
+                        self.matrix[r][c] = d
+            else:
+                if len(data) != rows * cols:
+                    raise ValueError("Length of data must match rows * cols.")
+                for i in range(len(data)):
+                    r, c = divmod(i, cols)
+                    if 0 <= r < rows and 0 <= c < cols:
+                        if data[i] != 0:
+                            self.matrix[r][c] = data[i]
 
     def __call__(self):
         return self
