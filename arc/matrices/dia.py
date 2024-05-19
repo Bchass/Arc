@@ -121,7 +121,6 @@ class dia_matrix:
                 result.matrix[i][j] = self.matrix[i][j] - other.matrix[i][j]
         return result
 
-    # TODO: Needs more work
     def divide(self, other):
 
         if self.size != other.size:
