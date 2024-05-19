@@ -123,3 +123,17 @@ class csr_matrix:
             for j in range(self.cols):
                 result.matrix[i][j] = self.matrix[i][j] - other.matrix[i][j]
         return result
+
+    def divide(self, other):
+
+        if self.rows != other.rows or self.cols != other.cols:
+            raise ValueError("Matrices must have the same dimensions")
+
+        result = csr_matrix(self.rows, self.cols)
+        result.matrix = [[0] * self.cols for _ in range(self.rows)]
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if other.matrix[i][j] == 0:
+                    raise ValueError("Divison by zeros encountered")
+                result.matrix[i][j] = self.matrix[i][j] // other.matrix[i][j]
+        return result

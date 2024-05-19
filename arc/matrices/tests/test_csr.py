@@ -116,6 +116,7 @@ def test_addition():
 
         result_matrix = A.add(D)
 
+
 def test_subtraction():
     row1 = [0, 0, 1, 1, 2, 2]
     col1 = [0, 1, 0, 1, 0, 1]
@@ -142,5 +143,23 @@ def test_subtraction():
         result_matrix = A.add(D)
 
 
+def test_divison():
 
+    A = csr_matrix(2, 2, data=[4, 8, 12, 16], row=[
+                   0, 0, 1, 1], col=[0, 1, 0, 1])
 
+    D = csr_matrix(2, 2, data=[1, 2, 3, 4], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
+
+    assert (A[0, :] == [4, 8] and (A[1, :] == [12, 16]))
+    assert (D[0, :] == [1, 2] and (D[1, :] == [3, 4]))
+
+    result_matrix = A.divide(D)
+
+    assert (result_matrix[0, :] == [4, 4] and (
+        result_matrix[1, :] == [4, 4]))
+
+    with pytest.raises(ValueError):
+        A = csr_matrix(2, 2)
+        D = csr_matrix(3, 2)
+
+        result_matrix = A.divide(D)
