@@ -1,5 +1,3 @@
-from . import data_types
-
 # TODO: Add offsets and data option
 
 
@@ -74,7 +72,8 @@ class dia_matrix:
 
         if self.size != other.shape:
             raise ValueError(
-                "Number of columns in the first matrix does not equal to the number of rows in the second matrix")
+                "Number of columns in the first matrix does not equal"
+                "to the number of rows in the second matrix")
 
         result = dia_matrix(self.size)
         result.matrix = [[0] * self.size for _ in range(self.size)]
@@ -93,7 +92,8 @@ class dia_matrix:
 
         if self.size != other.shape:
             raise ValueError(
-                "Number of columns in the first matrix does not equal to the number of rows in the second matrix")
+                "Number of columns in the first matrix does not equal"
+                "to the number of rows in the second matrix")
 
         result = dia_matrix(self.size)
         result.matrix = [[0] * self.size for _ in range(self.size)]
@@ -112,7 +112,8 @@ class dia_matrix:
         for i in range(self.size):
             if self.matrix[i][i] < 0 or other.matrix[i][i] < 0:
                 raise ValueError(
-                    "Positive definite matrix cannot have negative diagonal elements")
+                    "Positive definite matrix cannot"
+                    "have negative diagonal elements")
 
         result = dia_matrix(self.size)
         result.matrix = [[0] * self.size for _ in range(self.size)]
@@ -129,7 +130,8 @@ class dia_matrix:
 
         if self.size != other.shape:
             raise ValueError(
-                "Number of columns in the first matrix does not equal to the number of rows in the second matrix")
+                "Number of columns in the first matrix does not equal"
+                "to the number of rows in the second matrix")
 
         result = dia_matrix(self.size)
         result.matrix = [[0] * self.size for _ in range(self.size)]

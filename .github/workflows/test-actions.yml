@@ -1,0 +1,54 @@
+name: check-build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened, converted_to_draft, ready_for_review, synchronize]
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12']
+        os: [ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+
+      - name: Install blas, lapack for Linux
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y libblas-dev liblapack-dev
+
+      - name: Lint code
+        run: |
+          python -m pip install flake8
+          flake8 .
+        working-directory: arc/matrices
+  
+      - name: Autoformat code with autopep8
+        run: |
+          python -m pip install autopep8
+          autopep8 --in-place --recursive .
+        working-directory: arc/matrices
+
+      - name: Install pytest
+        run: |
+          python -m pip install pytest
+
+      - name: Run tests with Python ${{ matrix.python-version }}
+        run: |
+          python -m pytest arc/matrices/tests

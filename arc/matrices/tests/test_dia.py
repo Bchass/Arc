@@ -1,6 +1,6 @@
 import pytest
 from arc.matrices import dia_matrix
-from arc.matrices.data_types import *
+from arc.matrices.data_types import int8
 
 # TODO: Need to figure out a better example with dtype
 # TODO: Refactor test cases
@@ -147,16 +147,17 @@ def test_subtraction():
     result_matrix = A.subtract(D)
 
     assert (result_matrix[0, :] == [0, 0, 0] and (
-        result_matrix[1, :] == [0, 1, 0] and (result_matrix[2, :] == [0, 0, 1])))
-    
+        result_matrix[1, :] == [0, 1, 0] and (result_matrix[2, :] == [0, 0, 1]))) # noqa
 
 # TODO: Update this after format is fixed
+
+
 def test_toarray():
 
     A = dia_matrix(3, 4).toarray()
     expected_matrix = """
     [[0, 0, 0, 0],
-    [0, 0, 0, 0], 
+    [0, 0, 0, 0],
     [0, 0, 0, 0]]"""
     actual_str = ''.join(str(A).split())
     expected_str = ''.join(expected_matrix.split())
