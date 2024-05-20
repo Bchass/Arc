@@ -1,0 +1,36 @@
+name: check-build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened, converted_to_draft, ready_for_review, synchronize]
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '>=3.11.0'
+
+      - name: Install blas, lapack for Linux
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get install -y libblas-dev liblapack-dev
+
+      - name: Run tests
+        run: |
+          python -m pytest arc/matrices/tests
