@@ -61,7 +61,9 @@ import numpy as np
 from scipy.sparse import dia_matrix
 dia_matrix((400, 400), dtype=np.int8).toarray()
 ```
+---
 
+### Contributing: https://github.com/Bchass/Arc/blob/main/CONTRIBUTING.md
 ---
 
 ###  Roadmap:
