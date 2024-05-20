@@ -1,1 +1,1 @@
-"""Empty for tests"""
+"""Empty for tests""" # noqa
