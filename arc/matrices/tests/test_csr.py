@@ -1,140 +1,199 @@
 import pytest
 from arc.matrices import csr_matrix
+from arc.matrices import data_types
 
 
 def test_default_constructor():
-    test_input_matrix = csr_matrix(3, 3)
-    assert test_input_matrix.rows == 3
-    assert test_input_matrix.cols == 3
-    expected_matrix = [[0] * 3 for _ in range(3)]
+    try:
+        matrix_instance = csr_matrix(3, 3)
 
-    assert test_input_matrix.matrix == expected_matrix
+        assert matrix_instance.rows == 3, f"Expected 3 rows, but got {matrix_instance.rows}"
+        assert matrix_instance.cols == 3, f"Expected 3 columns, but got {matrix_instance.cols}"
 
+        expected_matrix = [[0] * 3 for _ in range(3)]
+        assert matrix_instance.matrix == expected_matrix, f"Expected {expected_matrix}, but got {matrix_instance.matrix}"
+
+        assert isinstance(matrix_instance, csr_matrix), "The object is not an instance of csr_matrix"
+
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
 
 def test_all():
-    test_input_matrix = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[
-                                   0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2])
-    expected_matrix = [[1, 0, 2], [0, 0, 3], [4, 5, 6]]
+    try:
+        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2])
+        expected_matrix = [[1, 0, 2], [0, 0, 3], [4, 5, 6]]
 
-    assert test_input_matrix.matrix == expected_matrix
+        assert matrix_instance.matrix == expected_matrix, f"Expected {expected_matrix}, but got {matrix_instance.matrix}"
 
+        assert isinstance(matrix_instance, csr_matrix), "The object is not an instance of csr_matrix"
 
-def test_get_cols():
-    test_input_matrix = csr_matrix(3, 3).get_cols()
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
 
-    expected_result = 3
+def test_empty_matrix():
+    try:
+        matrix_instance = csr_matrix(0, 0)
 
-    assert test_input_matrix == expected_result
+        assert matrix_instance.matrix == [], "Expected an empty matrix"
 
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
 
 def test_get_rows():
-    test_input_matrix = csr_matrix(3, 3).get_rows()
+    try:
+        matrix_instance = csr_matrix(0, 3)
+        assert matrix_instance.get_rows() == 0, "Expected 0 rows"
 
-    expected_result = 3
+        matrix_instance = csr_matrix(3, 3)
+        assert matrix_instance.get_rows() == 3, "Expected 3 rows"
 
-    assert test_input_matrix == expected_result
+        # Limit test: Performance impact at 100x100
+        matrix_instance = csr_matrix(100, 3)
+        assert matrix_instance.get_rows() == 100, "Expected 100 rows"
 
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
+
+def test_get_cols():
+    try:
+        matrix_instance = csr_matrix(3, 0)
+        assert matrix_instance.get_cols() == 0, "Expected 0 columns"
+
+        matrix_instance = csr_matrix(3, 3)
+        assert matrix_instance.get_cols() == 3, "Expected 3 columns"
+
+        # Limit test: Performance impact at 100x100
+        matrix_instance = csr_matrix(3, 100)
+        assert matrix_instance.get_cols() == 100, "Expected 100 columns"
+
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
 
 def test_get_size():
-    test_input_matrix = csr_matrix(3, 3).get_size()
+    try:
+        matrix_instance = csr_matrix(0, 0)
+        assert matrix_instance.get_size() == 0, "Expected size 0 for empty matrix"
 
-    expected_result = 9
+        matrix_instance = csr_matrix(0, 3)
+        assert matrix_instance.get_size() == 0, "Expected size 0 for empty matrix"
 
-    assert test_input_matrix == expected_result
+        matrix_instance = csr_matrix(3, 0)
+        assert matrix_instance.get_size() == 0, "Expected size 0 for empty matrix"
 
+        matrix_instance = csr_matrix(3, 3)
+        assert matrix_instance.get_size() == 9, "Expected size 9 for 3x3 matrix"
+
+        # Limit test: Performance impact at 100x100
+        matrix_instance = csr_matrix(100, 100)
+        assert matrix_instance.get_size() == 10000, "Expected size 10000 for 100x100 matrix"
+
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
 
 def test_nnz():
-    test_input_matrix = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[
-                                   0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2]).nnz() # noqa
+    try:
+        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2])
+        result = matrix_instance.nnz()
+        assert result == 6, "Expected 6 non-zero elements"
 
-    expected_result = 6
+        matrix_instance = csr_matrix(3, 3)
+        result = matrix_instance.nnz()
+        assert result == 0, "Expected 0 non-zero elements for an empty matrix"
 
-    assert test_input_matrix == expected_result
+        matrix_instance = csr_matrix(3, 3, data=[0, 0, 0, 0, 0, 0, 0, 0, 0])
+        result = matrix_instance.nnz()
+        assert result == 0, "Expected 0 non-zero elements for a matrix with all zeros"
 
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
 
 def test_multiplication():
-    A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[
-                   0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+    try:
+        A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        D = csr_matrix(2, 2, data=[7, 8, 9, 10], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
 
-    D = csr_matrix(2, 2, data=[7, 8, 9, 10], row=[
-                   0, 0, 1, 1], col=[0, 1, 0, 1])
-
-    assert (A[0, :] == [1, 2] and (A[1, :] == [3, 4] and (A[2, :] == [5, 6])))
-    assert (D[0, :] == [7, 8] and (D[1, :] == [9, 10]))
-
-    result_matrix = A.multiply(D)
-
-    assert (result_matrix[0, :] == [25, 28] and (
-        result_matrix[1, :] == [57, 64] and (result_matrix[2, :] == [89, 100]))) # noqa
-
-    with pytest.raises(ValueError):
-        A = csr_matrix(3, 3)
-        D = csr_matrix(3, 3)
+        assert A[0, :] == [1, 2] and A[1, :] == [3, 4] and A[2, :] == [5, 6]
+        assert D[0, :] == [7, 8] and D[1, :] == [9, 10]
 
         result_matrix = A.multiply(D)
 
+        expected_result = csr_matrix(3, 2, data=[25, 28, 57, 64, 89, 100], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+
+        assert result_matrix.matrix == expected_result.matrix, "Multiplication result is incorrect"
+        
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
 
 def test_addition():
-    A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[
-                   0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+    try:
+        A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        D = csr_matrix(3, 2, data=[7, 8, 9, 10, 0, 0], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
-    D = csr_matrix(3, 2, data=[7, 8, 9, 10], row=[
-                   0, 0, 1, 1], col=[0, 1, 0, 1])
-
-    assert (A[0, :] == [1, 2] and (A[1, :] == [3, 4] and (A[2, :] == [5, 6])))
-    assert (D[0, :] == [7, 8] and (D[1, :] == [9, 10] and (D[2, :] == [0, 0])))
-
-    result_matrix = A.add(D)
-
-    assert (result_matrix[0, :] == [8, 10] and (
-        result_matrix[1, :] == [12, 14] and (result_matrix[2, :] == [5, 6])))
-
-    with pytest.raises(ValueError):
-        A = csr_matrix(2, 2)
-        D = csr_matrix(3, 2)
+        assert A[0, :] == [1, 2] and A[1, :] == [3, 4] and A[2, :] == [5, 6]
+        assert D[0, :] == [7, 8] and D[1, :] == [9, 10] and D[2, :] == [0, 0]
 
         result_matrix = A.add(D)
+        expected_result = csr_matrix(3, 2, data=[8, 10, 12, 14, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
+        assert result_matrix.matrix == expected_result.matrix, "The result of addition is incorrect"
+
+        with pytest.raises(ValueError):
+            A = csr_matrix(2, 2)
+            D = csr_matrix(3, 2)
+
+            result_matrix = A.add(D)
+
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
 
 def test_subtraction():
-    A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[
-                   0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+    try:
+        A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        D = csr_matrix(3, 2, data=[7, 8, 9, 10, 0, 0], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
-    D = csr_matrix(3, 2, data=[7, 8, 9, 10], row=[
-                   0, 0, 1, 1], col=[0, 1, 0, 1])
+        assert A[0, :] == [1, 2] and A[1, :] == [3, 4] and A[2, :] == [5, 6]
+        assert D[0, :] == [7, 8] and D[1, :] == [9, 10] and D[2, :] == [0, 0]
 
-    assert (A[0, :] == [1, 2] and (A[1, :] == [3, 4] and (A[2, :] == [5, 6])))
-    assert (D[0, :] == [7, 8] and (D[1, :] == [9, 10] and (D[2, :] == [0, 0])))
+        result_matrix = A.subtract(D)
 
-    result_matrix = A.add(D)
+        expected_result = csr_matrix(3, 2, data=[-6, -6, -6, -6, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
-    assert (result_matrix[0, :] == [8, 10] and (
-        result_matrix[1, :] == [12, 14] and (result_matrix[2, :] == [5, 6])))
+        assert result_matrix.matrix == expected_result.matrix, "The result of subtraction is incorrect"
 
-    with pytest.raises(ValueError):
-        A = csr_matrix(2, 2)
-        D = csr_matrix(3, 2)
+        with pytest.raises(ValueError):
+            A = csr_matrix(2, 2)
+            D = csr_matrix(3, 2)
 
-        result_matrix = A.add(D)
+            result_matrix = A.subtract(D)
 
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
 
-def test_divison():
+def test_division():
+    try:
+        A = csr_matrix(2, 2, data=[4, 8, 12, 16], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
+        D = csr_matrix(2, 2, data=[1, 2, 3, 4], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
 
-    A = csr_matrix(2, 2, data=[4, 8, 12, 16], row=[
-                   0, 0, 1, 1], col=[0, 1, 0, 1])
-
-    D = csr_matrix(2, 2, data=[1, 2, 3, 4], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
-
-    assert (A[0, :] == [4, 8] and (A[1, :] == [12, 16]))
-    assert (D[0, :] == [1, 2] and (D[1, :] == [3, 4]))
-
-    result_matrix = A.divide(D)
-
-    assert (result_matrix[0, :] == [4, 4] and (
-        result_matrix[1, :] == [4, 4]))
-
-    with pytest.raises(ValueError):
-        A = csr_matrix(2, 2)
-        D = csr_matrix(3, 2)
+        assert A[0, :] == [4, 8] and A[1, :] == [12, 16]
+        assert D[0, :] == [1, 2] and D[1, :] == [3, 4]
 
         result_matrix = A.divide(D)
+
+        expected_result = csr_matrix(2, 2, data=[4, 4, 4, 4], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
+
+        assert result_matrix.matrix == expected_result.matrix, "The result of division is incorrect"
+
+        with pytest.raises(ValueError):
+            A = csr_matrix(2, 2)
+            D = csr_matrix(3, 2)
+
+            result_matrix = A.divide(D)
+
+        with pytest.raises(ValueError):
+            A = csr_matrix(2, 2, data=[4, 8, 12, 16], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
+            D = csr_matrix(2, 2, data=[0, 0, 0, 0], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
+
+            result_matrix = A.divide(D)
+
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
