@@ -17,10 +17,11 @@ class csr_matrix:
             else:
                 if len(data) != rows * cols:
                     raise ValueError("Length of data must match rows * cols.")
-                for i in enumerate(data):
+                for i in range(len(data)):
                     r, c = divmod(i, cols)
                     if 0 <= r < rows and 0 <= c < cols:
-                        self.matrix[r][c] = d
+                        if data[i] != 0:
+                            self.matrix[r][c] = data[i]
 
     def __call__(self):
         return self
@@ -67,7 +68,13 @@ class csr_matrix:
             return [row[:] for row in array]
 
     def nnz(self):
-        return sum(1 for row in self.matrix for element in row if element != 0)
+
+        count = 0
+        for row in self.matrix:
+            for element in row:
+                if element != 0:
+                    count += 1
+        return count
 
     def multiply(self, other):
 
