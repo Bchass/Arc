@@ -65,4 +65,4 @@ dia_matrix((400, 400), dtype=np.int8).toarray()
 ---
 
 ###  Roadmap:
-Test cases can be enhanced; additional classes will be offered; `dia_matrix` needs a little more work; and `csr_matrix` is a work in progress that will eventually require a refactor. `arc_BLAS` is an introduction and will take some time to mature.
+Test cases can be enhanced; additional classes will be offered; push to pypi when there's enough to offer.
