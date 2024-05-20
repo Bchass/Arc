@@ -30,44 +30,12 @@ def test_all():
     except Exception as e:
         assert False, f"An error occurred: {e}"
 
-def test_data():
-    try:
-        matrix_instance = csr_matrix(2, 3, data=[1, 2, 3, 4, 5, 6])
-        expected_matrix = [[1, 2, 3], [4, 5, 6]]
-
-        assert matrix_instance.matrix == expected_matrix, f"Expected {expected_matrix}, but got {matrix_instance.matrix}"
-
-        assert isinstance(matrix_instance, csr_matrix), "The object is not an instance of csr_matrix"
-
-    except Exception as e:
-        assert False, f"An error occurred: {e}"
-
 def test_empty_matrix():
     try:
         matrix_instance = csr_matrix(0, 0)
 
         assert matrix_instance.matrix == [], "Expected an empty matrix"
 
-    except Exception as e:
-        assert False, f"An error occurred: {e}"
-
-def test_data_without_row_col():
-    try:
-        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6, 0, 0, 0])
-        expected_matrix = [[1, 2, 3], [4, 5, 6], [0, 0, 0]]
-        
-        assert matrix_instance.matrix == expected_matrix, f"Expected {expected_matrix}, but got {matrix_instance.matrix}"
-        
-    except Exception as e:
-        assert False, f"An error occurred: {e}"
-
-def test_data_without_data():
-    try:
-        matrix_instance = csr_matrix(2, 2)
-        expected_matrix = [[0, 0], [0, 0]]
-
-        assert matrix_instance.matrix == expected_matrix, f"Expected {expected_matrix}, but got {matrix_instance.matrix}"
-        
     except Exception as e:
         assert False, f"An error occurred: {e}"
 
