@@ -1,3 +1,5 @@
+[![check-build](https://github.com/Bchass/Arc/actions/workflows/test-actions.yml/badge.svg)](https://github.com/Bchass/Arc/actions/workflows/test-actions.yml)
+
 <h1 align="center">
 Arc
 </h1>
