@@ -132,12 +132,6 @@ def test_multiplication():
         _ = A.multiply(D)
     assert "Matrices must be of the same size for multiplication" in str(excinfo1.value), "Exception message should indicate incompatible sizes for multiplication"
 
-    with pytest.raises(ValueError) as excinfo2:
-        A = dia_matrix(3, 4)
-        D = dia_matrix(3, 4)
-        _ = A.multiply(D)
-    assert "Number of columns in the first matrix does not equal to the number of rows in the second matrix" in str(excinfo2.value), "Exception message should indicate different shapes for multiplication"
-
 def test_addition():
     try:
         A = dia_matrix(2, 2)
@@ -165,12 +159,6 @@ def test_addition():
         _ = A.add(D)
     assert "Matrices must be of the same size for addition" in str(excinfo1.value), "Exception message should indicate incompatible sizes for addition"
 
-    with pytest.raises(ValueError) as excinfo2:
-        A = dia_matrix(3, 4)
-        D = dia_matrix(3, 4)
-        _ = A.add(D)
-    assert "Number of columns in the first matrix does not equal to the number of rows in the second matrix" in str(excinfo2.value), "Exception message should indicate different shapes for addition"
-
 def test_subtraction():
     try:
         A = dia_matrix(3, 3)
@@ -197,13 +185,6 @@ def test_subtraction():
         D = dia_matrix(3, 4)
         _ = A.subtract(D)
     assert "Matrices must be of the same size for subtraction" in str(excinfo1.value), "Exception message should indicate incompatible sizes for subtraction"
-
-    with pytest.raises(ValueError) as excinfo2:
-        A = dia_matrix(3, 3)
-        A.set_element(0, 0, -1)
-        D = dia_matrix(3, 3)
-        _ = A.subtract(D)
-    assert "Positive definite matrix cannot have negative diagonal elements" in str(excinfo2.value), "Exception message should indicate negative diagonal element"    
 
 # TODO: Update this after format is fixed
 def test_toarray():

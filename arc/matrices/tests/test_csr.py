@@ -32,8 +32,8 @@ def test_all():
 
 def test_data():
     try:
-        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6])
-        expected_matrix = [[1, 2, 3], [4, 5, 6], [0, 0, 0]]
+        matrix_instance = csr_matrix(2, 3, data=[1, 2, 3, 4, 5, 6])
+        expected_matrix = [[1, 2, 3], [4, 5, 6]]
 
         assert matrix_instance.matrix == expected_matrix, f"Expected {expected_matrix}, but got {matrix_instance.matrix}"
 
@@ -53,7 +53,7 @@ def test_empty_matrix():
 
 def test_data_without_row_col():
     try:
-        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6])
+        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6, 0, 0, 0])
         expected_matrix = [[1, 2, 3], [4, 5, 6], [0, 0, 0]]
         
         assert matrix_instance.matrix == expected_matrix, f"Expected {expected_matrix}, but got {matrix_instance.matrix}"
