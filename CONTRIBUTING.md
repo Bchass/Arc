@@ -20,8 +20,6 @@ To contribute to Arc, you'll need to follow these steps:
    ```
 
 ### Coding Standards
-
-- We use Flake8 for linting. Ensure your code passes Flake8 checks before submitting a pull request
   
 - Follow PEP8 guidelines for code formatting.
 
