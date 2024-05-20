@@ -12,7 +12,7 @@ class arc_BLAS:
 
         # Load the Accelerate framework
         return ctypes.CDLL(
-            '/System/Library/Frameworks/Accelerate.framework/Versions/Current/Frameworks/vecLib.framework/Versions/Current/libBLAS.dylib')
+            '/System/Library/Frameworks/Accelerate.framework/Versions/Current/Frameworks/vecLib.framework/Versions/Current/libBLAS.dylib') # noqa
 
     @staticmethod
     def sdot(x, y):
@@ -21,7 +21,8 @@ class arc_BLAS:
 
         # Arguments and return types
         blas_lib.cblas_sdot.argtypes = [ctypes.c_int, ctypes.POINTER(
-            ctypes.c_float), ctypes.c_int, ctypes.POINTER(ctypes.c_float), ctypes.c_int]
+            ctypes.c_float), ctypes.c_int, ctypes.POINTER(ctypes.c_float),
+            ctypes.c_int]
 
         blas_lib.cblas_sdot.restype = ctypes.c_float
 
@@ -39,7 +40,8 @@ class arc_BLAS:
         blas_lib = arc_BLAS.load_BLAS()
 
         blas_lib.cblas_sdsdot.argtypes = [ctypes.c_int, ctypes.POINTER(
-            ctypes.c_double), ctypes.c_int, ctypes.POINTER(ctypes.c_double), ctypes.c_int]
+            ctypes.c_double), ctypes.c_int, ctypes.POINTER(ctypes.c_double),
+            ctypes.c_int]
 
         blas_lib.cblas_sdsdot.restype = ctypes.c_double
 

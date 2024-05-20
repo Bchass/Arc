@@ -1,6 +1,3 @@
-from . import data_types
-
-
 class csr_matrix:
 
     def __init__(self, rows, cols, dtype=None, data=None, row=None, col=None):
@@ -96,7 +93,9 @@ class csr_matrix:
 
         if self.rows != other.rows or self.cols != other.cols:
             raise ValueError(
-                "Number of columns in the first matrix does not equal to the number of rows in the second matrix")
+                "Number of columns in the first matrix does not equal"
+                "to the number of rows in the second matrix"
+            )
 
         result = csr_matrix(self.rows, self.cols)
         result.matrix = [[0] * self.cols for _ in range(self.rows)]
@@ -109,7 +108,8 @@ class csr_matrix:
 
         if self.rows != other.rows or self.cols != other.cols:
             raise ValueError(
-                "Number of columns in the first matrix does not equal to the number of rows in the second matrix")
+                "Number of columns in the first matrix does not equal"
+                " to the number of rows in the second matrix")
 
         result = csr_matrix(self.rows, self.cols)
         result.matrix = [[0] * self.cols for _ in range(self.rows)]

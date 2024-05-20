@@ -1,6 +1,5 @@
 import pytest
 from arc.matrices import csr_matrix
-from arc.matrices import data_types
 
 
 def test_default_constructor():
@@ -46,7 +45,7 @@ def test_get_size():
 
 def test_nnz():
     test_input_matrix = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[
-                                   0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2]).nnz()
+                                   0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2]).nnz() # noqa
 
     expected_result = 6
 
@@ -66,7 +65,7 @@ def test_multiplication():
     result_matrix = A.multiply(D)
 
     assert (result_matrix[0, :] == [25, 28] and (
-        result_matrix[1, :] == [57, 64] and (result_matrix[2, :] == [89, 100])))
+        result_matrix[1, :] == [57, 64] and (result_matrix[2, :] == [89, 100]))) # noqa
 
     with pytest.raises(ValueError):
         A = csr_matrix(3, 3)
