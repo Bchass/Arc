@@ -63,7 +63,7 @@ dia_matrix((400, 400), dtype=np.int8).toarray()
 ```
 ---
 
-### Contributing: https://github.com/Bchass/Arc/blob/main/CONTRIBUTING.md
+### [Contributing Guidelines](https://github.com/Bchass/Arc/blob/main/CONTRIBUTING.md)
 ---
 
 ###  Roadmap:
