@@ -1,4 +1,5 @@
 [![check-build](https://github.com/Bchass/Arc/actions/workflows/test-actions.yml/badge.svg)](https://github.com/Bchass/Arc/actions/workflows/test-actions.yml)
+[![codecov](https://codecov.io/gh/Bchass/Arc/branch/main/graph/badge.svg?token=gPGfS15fwA)](https://codecov.io/gh/Bchass/Arc)
 
 <h1 align="center">
 Arc
