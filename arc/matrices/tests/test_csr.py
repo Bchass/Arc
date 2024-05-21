@@ -7,28 +7,37 @@ def test_default_constructor():
     try:
         matrix_instance = csr_matrix(3, 3)
 
-        assert matrix_instance.rows == 3, f"Expected 3 rows, but got {matrix_instance.rows}"
-        assert matrix_instance.cols == 3, f"Expected 3 columns, but got {matrix_instance.cols}"
+        assert matrix_instance.rows == 3, f"Expected 3 rows, but got {
+            matrix_instance.rows}"
+        assert matrix_instance.cols == 3, f"Expected 3 columns, but got {
+            matrix_instance.cols}"
 
         expected_matrix = [[0] * 3 for _ in range(3)]
-        assert matrix_instance.matrix == expected_matrix, f"Expected {expected_matrix}, but got {matrix_instance.matrix}"
+        assert matrix_instance.matrix == expected_matrix, f"Expected {
+            expected_matrix}, but got {matrix_instance.matrix}"
 
-        assert isinstance(matrix_instance, csr_matrix), "The object is not an instance of csr_matrix"
+        assert isinstance(
+            matrix_instance, csr_matrix), "The object is not an instance of csr_matrix"
 
     except Exception as e:
         assert False, f"An error occurred: {e}"
+
 
 def test_all():
     try:
-        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2])
+        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[
+                                     0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2])
         expected_matrix = [[1, 0, 2], [0, 0, 3], [4, 5, 6]]
 
-        assert matrix_instance.matrix == expected_matrix, f"Expected {expected_matrix}, but got {matrix_instance.matrix}"
+        assert matrix_instance.matrix == expected_matrix, f"Expected {
+            expected_matrix}, but got {matrix_instance.matrix}"
 
-        assert isinstance(matrix_instance, csr_matrix), "The object is not an instance of csr_matrix"
+        assert isinstance(
+            matrix_instance, csr_matrix), "The object is not an instance of csr_matrix"
 
     except Exception as e:
         assert False, f"An error occurred: {e}"
+
 
 def test_empty_matrix():
     try:
@@ -38,6 +47,7 @@ def test_empty_matrix():
 
     except Exception as e:
         assert False, f"An error occurred: {e}"
+
 
 def test_get_rows():
     try:
@@ -54,6 +64,7 @@ def test_get_rows():
     except Exception as e:
         assert False, f"An error occurred: {e}"
 
+
 def test_get_cols():
     try:
         matrix_instance = csr_matrix(3, 0)
@@ -68,6 +79,7 @@ def test_get_cols():
 
     except Exception as e:
         assert False, f"An error occurred: {e}"
+
 
 def test_get_size():
     try:
@@ -90,9 +102,11 @@ def test_get_size():
     except Exception as e:
         assert False, f"An error occurred: {e}"
 
+
 def test_nnz():
     try:
-        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2])
+        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[
+                                     0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2])
         result = matrix_instance.nnz()
         assert result == 6, "Expected 6 non-zero elements"
 
@@ -107,33 +121,41 @@ def test_nnz():
     except Exception as e:
         assert False, f"An error occurred: {e}"
 
+
 def test_multiplication():
     try:
-        A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
-        D = csr_matrix(2, 2, data=[7, 8, 9, 10], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
+        A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[
+                       0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        D = csr_matrix(2, 2, data=[7, 8, 9, 10], row=[
+                       0, 0, 1, 1], col=[0, 1, 0, 1])
 
         assert A[0, :] == [1, 2] and A[1, :] == [3, 4] and A[2, :] == [5, 6]
         assert D[0, :] == [7, 8] and D[1, :] == [9, 10]
 
         result_matrix = A.multiply(D)
 
-        expected_result = csr_matrix(3, 2, data=[25, 28, 57, 64, 89, 100], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        expected_result = csr_matrix(3, 2, data=[25, 28, 57, 64, 89, 100], row=[
+                                     0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
         assert result_matrix.matrix == expected_result.matrix, "Multiplication result is incorrect"
-        
+
     except Exception as e:
         assert False, f"An error occurred: {e}"
 
+
 def test_addition():
     try:
-        A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
-        D = csr_matrix(3, 2, data=[7, 8, 9, 10, 0, 0], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[
+                       0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        D = csr_matrix(3, 2, data=[7, 8, 9, 10, 0, 0], row=[
+                       0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
         assert A[0, :] == [1, 2] and A[1, :] == [3, 4] and A[2, :] == [5, 6]
         assert D[0, :] == [7, 8] and D[1, :] == [9, 10] and D[2, :] == [0, 0]
 
         result_matrix = A.add(D)
-        expected_result = csr_matrix(3, 2, data=[8, 10, 12, 14, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        expected_result = csr_matrix(3, 2, data=[8, 10, 12, 14, 5, 6], row=[
+                                     0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
         assert result_matrix.matrix == expected_result.matrix, "The result of addition is incorrect"
 
@@ -146,17 +168,21 @@ def test_addition():
     except Exception as e:
         assert False, f"An error occurred: {e}"
 
+
 def test_subtraction():
     try:
-        A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
-        D = csr_matrix(3, 2, data=[7, 8, 9, 10, 0, 0], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        A = csr_matrix(3, 2, data=[1, 2, 3, 4, 5, 6], row=[
+                       0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        D = csr_matrix(3, 2, data=[7, 8, 9, 10, 0, 0], row=[
+                       0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
         assert A[0, :] == [1, 2] and A[1, :] == [3, 4] and A[2, :] == [5, 6]
         assert D[0, :] == [7, 8] and D[1, :] == [9, 10] and D[2, :] == [0, 0]
 
         result_matrix = A.subtract(D)
 
-        expected_result = csr_matrix(3, 2, data=[-6, -6, -6, -6, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
+        expected_result = csr_matrix(
+            3, 2, data=[-6, -6, -6, -6, 5, 6], row=[0, 0, 1, 1, 2, 2], col=[0, 1, 0, 1, 0, 1])
 
         assert result_matrix.matrix == expected_result.matrix, "The result of subtraction is incorrect"
 
@@ -169,17 +195,21 @@ def test_subtraction():
     except Exception as e:
         assert False, f"An error occurred: {e}"
 
+
 def test_division():
     try:
-        A = csr_matrix(2, 2, data=[4, 8, 12, 16], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
-        D = csr_matrix(2, 2, data=[1, 2, 3, 4], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
+        A = csr_matrix(2, 2, data=[4, 8, 12, 16], row=[
+                       0, 0, 1, 1], col=[0, 1, 0, 1])
+        D = csr_matrix(2, 2, data=[1, 2, 3, 4], row=[
+                       0, 0, 1, 1], col=[0, 1, 0, 1])
 
         assert A[0, :] == [4, 8] and A[1, :] == [12, 16]
         assert D[0, :] == [1, 2] and D[1, :] == [3, 4]
 
         result_matrix = A.divide(D)
 
-        expected_result = csr_matrix(2, 2, data=[4, 4, 4, 4], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
+        expected_result = csr_matrix(2, 2, data=[4, 4, 4, 4], row=[
+                                     0, 0, 1, 1], col=[0, 1, 0, 1])
 
         assert result_matrix.matrix == expected_result.matrix, "The result of division is incorrect"
 
@@ -190,8 +220,10 @@ def test_division():
             result_matrix = A.divide(D)
 
         with pytest.raises(ValueError):
-            A = csr_matrix(2, 2, data=[4, 8, 12, 16], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
-            D = csr_matrix(2, 2, data=[0, 0, 0, 0], row=[0, 0, 1, 1], col=[0, 1, 0, 1])
+            A = csr_matrix(2, 2, data=[4, 8, 12, 16], row=[
+                           0, 0, 1, 1], col=[0, 1, 0, 1])
+            D = csr_matrix(2, 2, data=[0, 0, 0, 0], row=[
+                           0, 0, 1, 1], col=[0, 1, 0, 1])
 
             result_matrix = A.divide(D)
 
