@@ -2,8 +2,6 @@ import pytest
 from arc.matrices import dia_matrix
 from arc.matrices.data_types import *
 
-# TODO: Need to figure out a better example with dtype
-# TODO: Refactor test cases
 
 def test_default_constructor():
     try:
@@ -186,7 +184,6 @@ def test_subtraction():
         _ = A.subtract(D)
     assert "Matrices must be of the same size for subtraction" in str(excinfo1.value), "Exception message should indicate incompatible sizes for subtraction"
 
-# TODO: Update this after format is fixed
 def test_toarray():
 
     A = dia_matrix(3, 4).toarray()
