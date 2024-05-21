@@ -24,6 +24,13 @@ def test_default_constructor():
     except Exception as e:
         assert False, f"An error orccured: {e}"
 
+def test_call_returns_self():
+    try:
+        obj = csr_matrix(3,3)
+        assert obj() is obj
+    except Exception as e:
+        assert False, f"An error occurred: {e}"
+
 def test_all():
     try:
         matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2])
@@ -76,11 +83,11 @@ def test_dtype():
     except Exception as e:
         assert False, f"An error occured: {e}"
 
-def test_empty_matrix():
+def test_empty_matrix_repr():
     try:
         matrix_instance = csr_matrix(0, 0)
 
-        assert matrix_instance.__repr__() == '', "Expected '' string representation"
+        assert repr(matrix_instance) == '', "Expected '' string representation for an empty matrix"
 
     except Exception as e:
         assert False, f"An error occurred: {e}"
