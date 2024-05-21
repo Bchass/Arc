@@ -88,8 +88,8 @@ class csr_matrix:
         Returns:
         - str: String representation of the matrix.
         """
-        if self.matrix is None:
-            return " "
+        if not any(self.matrix):
+            return ""
         return str(self)
 
     def get_rows(self):
