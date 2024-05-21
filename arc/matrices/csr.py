@@ -42,7 +42,7 @@ class csr_matrix:
                         self.matrix[r][c] = data[i]
 
     def __call__(self):
-        return self # noqa
+        return self
 
     def __str__(self):
         """
