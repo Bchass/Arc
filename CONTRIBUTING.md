@@ -30,6 +30,11 @@ We use pytest for writing and running tests. Here's how to run the tests:
 python -m pytest arc/matrices/tests
 ```
 
+Make sure you have pytest installed:
+```
+pip install pytest
+```
+
 ### Submitting Changes
 
 Once you've made your changes and ensured they adhere to the coding standards and pass all tests, follow these steps to submit your contribution:
