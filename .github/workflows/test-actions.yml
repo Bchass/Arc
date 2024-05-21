@@ -26,7 +26,6 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      
 
       - name: Install blas, lapack for Linux
         if: runner.os == 'Linux'
@@ -46,3 +45,8 @@ jobs:
       - name: Run tests with Python ${{ matrix.python-version }}
         run: |
           python -m pytest arc/matrices/tests
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
