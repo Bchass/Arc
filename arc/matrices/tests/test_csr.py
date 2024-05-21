@@ -284,7 +284,7 @@ def test_subtraction():
         D = (3,3)
 
         with pytest.raises(ValueError):
-            A.multiply(D)
+            A.subtract(D)
         
     except ValueError:
             pass
@@ -326,7 +326,7 @@ def test_division():
         D = (3,3)
 
         with pytest.raises(ValueError):
-            A.multiply(D)
+            A.divide(D)
         
     except ValueError:
             pass
