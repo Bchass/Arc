@@ -42,7 +42,7 @@ class csr_matrix:
                         self.matrix[r][c] = data[i]
 
     def __call__(self):
-        return self
+        return self # noqa
 
     def __str__(self):
         """
@@ -89,7 +89,7 @@ class csr_matrix:
         - str: String representation of the matrix.
         """
         if self.matrix is None:
-            return "None"
+            return " "
         return str(self)
 
     def get_rows(self):
@@ -126,7 +126,7 @@ class csr_matrix:
         Returns:
         - list: Dense representation of the matrix.
         """
-
+        
         array = self.matrix[:]
         if self.dtype is not None:
             dtype_str = self.dtype.__name__
