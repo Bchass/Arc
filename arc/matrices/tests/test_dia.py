@@ -312,13 +312,20 @@ def test_subtraction():
         pytest.fail(f"Basic test failed with exception: {e}")
 
     with pytest.raises(ValueError) as excinfo1:
+        A = dia_matrix(2, 2)
+        D = (2, 2)
+        A.subtract(D)
+    assert "Instance is not a dia_matrix" in str(
+        excinfo1.value), "Exception message should indicate Instance is not a dia_matrix"
+
+    with pytest.raises(ValueError) as excinfo2:
         A = dia_matrix(2, 3)
         D = dia_matrix(3, 4)
         _ = A.subtract(D)
     assert "Matrices must be of the same size for subtraction" in str(
-        excinfo1.value), "Exception message should indicate incompatible sizes for subtraction"
+        excinfo2.value), "Exception message should indicate incompatible sizes for subtraction"
 
-    with pytest.raises(ValueError) as excinfo2:
+    with pytest.raises(ValueError) as excinfo3:
         A = dia_matrix(3, 3)
         A.set_element(0, 0, -1)
 
@@ -326,9 +333,9 @@ def test_subtraction():
         D.set_element(0, 0, 1)
         _ = A.subtract(D)
     assert "Positive definite matrix cannot have negative diagonal elements" in str(
-        excinfo2.value), "Exception message should indicate negative diagonal elements in matrix A"
+        excinfo3.value), "Exception message should indicate negative diagonal elements in matrix A"
 
-    with pytest.raises(ValueError) as excinfo3:
+    with pytest.raises(ValueError) as excinfo4:
         A = dia_matrix(3, 3)
         A.set_element(0, 0, 1)
 
@@ -336,7 +343,7 @@ def test_subtraction():
         D.set_element(0, 0, -1)
         _ = A.subtract(D)
     assert "Positive definite matrix cannot have negative diagonal elements" in str(
-        excinfo3.value), "Exception message should indicate negative diagonal elements in matrix D"
+        excinfo4.value), "Exception message should indicate negative diagonal elements in matrix D"
 
 
 def test_division():
