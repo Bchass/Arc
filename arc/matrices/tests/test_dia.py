@@ -46,6 +46,23 @@ def test_default_constructor():
     except Exception as e:
         assert False, f"An error occured: {e}"
 
+    try:
+        test_input_matrix = dia_matrix(2,2, data=[1,2,3,4])
+        expected_matrix = [[1,3], [4,2]]
+
+        assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
+
+    except Exception as e:
+        assert False, f"An error occured: {e}"
+
+    try:
+        test_input_matrix = dia_matrix(2,2, data=[0,0,3,4])
+        expected_matrix = [[0,3], [4,0]]
+
+        assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
+
+    except Exception as e:
+        assert False, f"An error occured: {e}"
 
 def test_getitem():
     try:
