@@ -13,12 +13,14 @@ class dia_matrix:
         - shape (type, optional): Shape of the matirx.
         - dtype (type, optional): Data type of the elements in the matrix.
         - other (type, optional): Second matrix for subtraction, addition, etc.
+        - data  (type, optional): Data to be inserted on the main diagonal or anti-diagonal
         """
 
         self.size = size
         self.shape = shape
         self.dtype = dtype
         self.other = other
+        self._loop_broken = False 
 
         if shape is None:
             shape = size
@@ -34,6 +36,7 @@ class dia_matrix:
                     self.matrix[i][i] = data[i]  # main diagonal
                 quotient, remainder = divmod(size, 1)
                 if remainder == 0 and i == quotient:
+                    self._loop_broken = True
                     break  # If even and we're at the middle, stop assigning
                 if len(data) > size:
                     # anti-diagonal
