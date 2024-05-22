@@ -38,11 +38,10 @@ def test_default_constructor():
         pytest.fail(f"Edge case test failed with exception: {e}")
 
     try:
-        test_input_matrix = dia_matrix(2, 2, data=[1, 2])
-        expected_matrix = [[1, 0], [0, 2]]
+        test_input_matrix = dia_matrix(2,2, data=[1,2])
+        expected_matrix = [[1,0], [0,2]]
 
-        assert test_input_matrix.matrix == expected_matrix, f"Expected {
-            expected_matrix}, but got {test_input_matrix.matrix}"
+        assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
 
     except Exception as e:
         assert False, f"An error occured: {e}"
