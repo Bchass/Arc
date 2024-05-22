@@ -33,13 +33,13 @@ In the realm of scientific computing, efficiency and simplicity are often paramo
 
 ---
 
-#### Baseline Benchmark:
+#### Example Baseline Benchmark:
 
 Arc
 ```
-Profiling Arc implementation:
-Arc implementation time: 0.25261666695587337
-         2027 function calls (2026 primitive calls) in 0.253 seconds
+Profiling Arc implementations:
+Arc implementation time for dia_matrix: 0.25066779099870473
+         2031 function calls (2030 primitive calls) in 0.251 seconds
 ```
 
 ```python3
@@ -52,9 +52,9 @@ dia_matrix(400, 400, dtype=int8).toarray()
 SciPy
 
 ```
-Profiling Scipy implementation:
-Scipy implementation time: 0.08977137506008148
-         267947 function calls (265630 primitive calls) in 0.328 seconds
+Profiling Scipy implementations:
+Scipy implementation time for dia_matrix: 0.1815791659973911
+         211031 function calls (211030 primitive calls) in 0.182 seconds
 ```
 
 ```python3
