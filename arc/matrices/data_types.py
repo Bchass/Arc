@@ -1,6 +1,6 @@
 import ctypes
 
-# TODOD: Add more data types. Test cases.
+# TODO: Add more data types.
 
 
 class int8(ctypes.Structure):
@@ -36,7 +36,7 @@ class int32(ctypes.Structure):
         self.value = value
 
     def __repr__(self):
-        return f"int132({self.value})"
+        return f"int32({self.value})"
 
 
 class int64(ctypes.Structure):
