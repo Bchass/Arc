@@ -45,12 +45,6 @@ class csr_matrix:
         return self
 
     def __str__(self):
-        """
-        Get a string representation of the matrix.
-
-        Returns:
-        - str: String representation of the matrix.
-        """
 
         if self.dtype is not None:
             dtype_str = self.dtype.__name__
@@ -63,18 +57,7 @@ class csr_matrix:
         return str(matrix_str)
 
     def __getitem__(self, key):
-        """
-       Get the value at the specified index.
 
-       Parameters:
-       - key (tuple): Tuple representing the index (row, col).
-
-       Returns:
-       - Any: Value at the specified index.
-
-       Raises:
-       - TypeError: If indexing csr_matrix requires a tuple (row, col).
-       """
         if isinstance(key, tuple) and len(key) == 2:
             row, col = key
             return self.matrix[row][col]
@@ -82,51 +65,25 @@ class csr_matrix:
             raise TypeError("Indexing csr_matrix requires a tuple (row, col)")
 
     def __repr__(self):
-        """
-        Get a string representation of the matrix.
 
-        Returns:
-        - str: String representation of the matrix.
-        """
         if not any(self.matrix):
             return ""
         return str(self)
 
     def get_rows(self):
-        """
-        Get the number of rows in the matrix.
 
-        Returns:
-        - int: Number of rows.
-        """
         return self.rows
 
     def get_cols(self):
-        """
-        Get the number of columns in the matrix.
 
-        Returns:
-        - int: Number of columns.
-        """
         return self.cols
 
     def get_size(self):
-        """
-        Get the total number of elements in the matrix.
 
-        Returns:
-        - int: Total number of elements.
-        """
         return self.rows * self.cols
 
     def toarray(self):
-        """
-        Convert the matrix to a dense array.
 
-        Returns:
-        - list: Dense representation of the matrix.
-        """
-        
         array = self.matrix[:]
         if self.dtype is not None:
             dtype_str = self.dtype.__name__
@@ -135,29 +92,10 @@ class csr_matrix:
             return [row[:] for row in array]
 
     def nnz(self):
-        """
-        Get the number of non-zero elements in the matrix.
-
-        Returns:
-        - int: Number of non-zero elements.
-        """
 
         return sum(1 for row in self.matrix for element in row if element != 0)
 
     def multiply(self, other):
-        """
-        Multiply the matrix by another matrix.
-
-        Parameters:
-        - other (csr_matrix): Matrix to multiply with.
-
-        Returns:
-        - csr_matrix: Result of the multiplication.
-
-        Raises:
-        - ValueError: If instance is not a csr_matrix
-        - ValueError: If multiplication by zeros encountered.
-        """
 
         if not isinstance(other, csr_matrix):
             raise ValueError("Instance is not a csr_matrix")
@@ -174,19 +112,6 @@ class csr_matrix:
         return result
 
     def add(self, other):
-        """
-        Add another matrix to the matrix.
-
-        Parameters:
-        - other (csr_matrix): Matrix to add.
-
-        Returns:
-        - csr_matrix: Result of the addition.
-
-        Raises:
-        - ValueError: If instance is not a csr_matrix
-        - ValueError: If number of columns in the first matrix does not equal to the number of rows in the second matrix.
-        """
 
         if not isinstance(other, csr_matrix):
             raise ValueError("Instance is not a csr_matrix")
@@ -205,19 +130,6 @@ class csr_matrix:
         return result
 
     def subtract(self, other):
-        """
-        Subtract another matrix from the matrix.
-
-        Parameters:
-        - other (csr_matrix): Matrix to subtract.
-
-        Returns:
-        - csr_matrix: Result of the subtraction.
-
-        Raises:
-        - ValueError: If instance is not a csr_matrix
-        - ValueError: If number of columns in the first matrix does not equal to the number of rows in the second matrix.
-        """
 
         if not isinstance(other, csr_matrix):
             raise ValueError("Instance is not a csr_matrix")
@@ -235,19 +147,6 @@ class csr_matrix:
         return result
 
     def divide(self, other):
-        """
-        Divide the matrix by another matrix.
-
-        Parameters:
-        - other (csr_matrix): Matrix to divide by.
-
-        Returns:
-        - csr_matrix: Result of the division.
-
-        Raises:
-        - ValueError: If instance is not a csr_matrix
-        - ValueError: If matrices must have the same dimensions or division by zeros encountered.
-        """
 
         if not isinstance(other, csr_matrix):
             raise ValueError("Instance is not a csr_matrix")
