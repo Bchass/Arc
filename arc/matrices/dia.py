@@ -4,7 +4,7 @@ class dia_matrix:
     A class representing a diagonal row (dia) matrix.
     """
 
-    def __init__(self, size, shape=None, dtype=None, other=None):
+    def __init__(self, size, shape=None, dtype=None, other=None, data=None, offsets=None):
         """
         Initialize the DIA matrix.
 
@@ -27,6 +27,10 @@ class dia_matrix:
                 self.matrix = [[0] * shape] * size
             else:
                 self.matrix = [[0] * shape for _ in range(size)]
+
+        if data is not None:
+            for i in range(size):
+                self.matrix[i][i] = data[i]
 
     def __call__(self):
         return self
