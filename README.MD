@@ -5,7 +5,7 @@
 Arc
 </h1>
 
-In the realm of scientific computing, efficiency and simplicity are often paramount. Inspired by the principles of projects like SciPy, Arc emerges as a lightweight alternative, meticulously crafted to without the burden of extra dependencies.
+In the realm of scientific computing, efficiency and simplicity are often paramount. Inspired by the principles of projects like SciPy, Arc emerges as a lightweight alternative, meticulously crafted without the burden of extra dependencies.
 
 ---
 
