@@ -1,4 +1,4 @@
-import pytest
+import pytest, sys, io
 from arc.matrices import dia_matrix
 from arc.matrices.data_types import *
 
@@ -37,18 +37,80 @@ def test_default_constructor():
     except Exception as e:
         pytest.fail(f"Edge case test failed with exception: {e}")
 
+    try:
+        test_input_matrix = dia_matrix(2,2, data=[1,2])
+        expected_matrix = [[1,0], [0,2]]
+
+        assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
+
+    except Exception as e:
+       pytest.fail(f"Edge case test failed with exception: {e}")
+
+    try:
+        test_input_matrix = dia_matrix(2,2, data=[1,2,3,4])
+        expected_matrix = [[1,3], [4,2]]
+
+        assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
+
+    except Exception as e:
+       pytest.fail(f"Edge case test failed with exception: {e}")
+
+    try:
+        test_input_matrix = dia_matrix(2,2, data=[0,0,3,4])
+        expected_matrix = [[0,3], [4,0]]
+
+        assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
+
+    except Exception as e:
+        pytest.fail(f"Edge case test failed with exception: {e}")
+
+    try:
+        test_input_matrix = dia_matrix(2,2, data=[3,4,0,0])
+        expected_matrix = [[3,0], [0,4]]
+
+        assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
+
+    except Exception as e:
+        pytest.fail(f"Edge case test failed with exception: {e}")
+
+    try:
+        test_input_matrix = dia_matrix(4,4, data=[1,2,3,4])
+        expected_matrix = [[1, 0, 0, 0], [0, 2, 0, 0], [0, 0, 3, 0], [0, 0, 0, 4]]
+
+        assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
+    except Exception as e:
+        pytest.fail(f"Edge case test failed with exception: {e}")
+
+    try:
+        test_input_matrix = dia_matrix(4, 4, data=[1, 2, 3, 4], offsets=[0,2,-1,1,2])
+        expected_matrix = [[1, 3, 0, 0], [4, 1, 3, 0], [2, 4, 1, 3], [0, 2, 4, 1]]
+
+        assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
+    except Exception as e:
+        pytest.fail(f"Edge case test failed with exception: {e}")
+    
+    try:
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+
+        test_input_matrix = dia_matrix(5, 5, data=[1, 2, 3, 4], offsets=[6])
+        printed_output = captured_output.getvalue().strip()
+
+        sys.stdout = sys.__stdout__
+
+        assert printed_output == "Ignoring offset 6, it's out of bounds"
+    except Exception as e:
+        pytest.fail(f"Edge case test failed with unexpected exception: {e}")
+
 
 def test_getitem():
     try:
-        test_input_matrix = dia_matrix(3, 3)
-        test_input_matrix.set_element(0, 0, 1)
-        test_input_matrix.set_element(1, 1, 4)
-        test_input_matrix.set_element(2, 2, 3)
+        test_input_matrix = dia_matrix(3, 3,data=[1,2,3])
 
         assert test_input_matrix[0,
                                  0] == 1, "Value at index (0, 0) should match"
         assert test_input_matrix[1,
-                                 1] == 4, "Value at index (1, 1) should match"
+                                 1] == 2, "Value at index (1, 1) should match"
         assert test_input_matrix[2,
                                  2] == 3, "Value at index (2, 2) should match"
 
@@ -56,7 +118,7 @@ def test_getitem():
         assert test_input_matrix[0, :] == [
             1, 0, 0], "Slice at row 0 should match"
         assert test_input_matrix[1, :] == [
-            0, 4, 0], "Slice at row 1 should match"
+            0, 2, 0], "Slice at row 1 should match"
         assert test_input_matrix[2, :] == [
             0, 0, 3], "Slice at row 2 should match"
 
@@ -117,40 +179,10 @@ def test_dtype():
 
     except Exception as e:
         assert False, f"An error occured: {e}"
-
-
-def test_set_element():
-    try:
-        test_input_matrix = dia_matrix(3, 4)
-        test_input_matrix.set_element(0, 0, 3)
-        expected_matrix = [[3, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
-        assert test_input_matrix.matrix == expected_matrix, "Matrix should match expected after setting element"
-    except Exception as e:
-        pytest.fail(f"Basic test failed with exception: {e}")
-
-    with pytest.raises(ValueError) as excinfo:
-        test_set_element = dia_matrix(3, 4)
-        test_set_element.set_element(3, 0, 0)
-    assert "Index out of range" in str(
-        excinfo.value), "Exception message should indicate index out of range"
-
-    with pytest.raises(ValueError) as excinfo:
-        test_set_element = dia_matrix(3, 4)
-        test_set_element.set_element(1, 5, 0)
-    assert "Index out of range" in str(
-        excinfo.value), "Exception message should indicate index out of range"
-
-    with pytest.raises(ValueError) as excinfo:
-        test_set_element = dia_matrix(3, 4)
-        test_set_element.set_element(1, 2, 1)
-    assert "Can only set elements on diagonal" in str(
-        excinfo.value), "Exception message should indicate only diagonal elements can be set"
-
-
+        
 def test_slice():
     try:
-        test_input_matrix = dia_matrix(3, 4)
-        test_input_matrix.set_element(0, 0, 3)
+        test_input_matrix = dia_matrix(3, 4, data=[3])
 
         assert test_input_matrix[0, :] == [
             3, 0, 0, 0], "Slice should match expected"
@@ -196,15 +228,9 @@ def test_size():
 
 def test_multiplication():
     try:
-        A = dia_matrix(2, 2)
-        A.set_element(1, 0, 2)
-        A.set_element(0, 0, 3)
-        A.set_element(1, 1, 1)
-        A.set_element(0, 1, 1)
+        A = dia_matrix(2, 2, data=[3,1,1,2])
 
-        D = dia_matrix(2, 2)
-        D.set_element(0, 0, 2)
-        D.set_element(1, 1, 4)
+        D = dia_matrix(2, 2, data=[2,4])
 
         assert (A[0, :] == [3, 1]) and (A[1, :] == [2, 1]
                                         ), "Matrix A slices should match expected"
@@ -242,15 +268,9 @@ def test_multiplication():
 
 def test_addition():
     try:
-        A = dia_matrix(2, 2)
-        A.set_element(1, 0, 2)
-        A.set_element(0, 0, 3)
-        A.set_element(1, 1, 1)
-        A.set_element(0, 1, 1)
+        A = dia_matrix(2, 2, data=[3,1,1,2])
 
-        D = dia_matrix(2, 2)
-        D.set_element(0, 0, 2)
-        D.set_element(1, 1, 4)
+        D = dia_matrix(2, 2, data=[2,4])
 
         assert (A[0, :] == [3, 1]) and (A[1, :] == [2, 1]
                                         ), "Matrix A slices should match expected"
@@ -288,24 +308,18 @@ def test_addition():
 
 def test_subtraction():
     try:
-        A = dia_matrix(3, 3)
-        A.set_element(0, 0, 1)
-        A.set_element(1, 1, 4)
-        A.set_element(2, 2, 3)
+        A = dia_matrix(3,3,data=[1,2,3])
 
-        D = dia_matrix(3, 3)
-        D.set_element(0, 0, 1)
-        D.set_element(1, 1, 3)
-        D.set_element(2, 2, 2)
+        D = dia_matrix(3, 3,data=[1,3,2])
 
-        assert (A[0, :] == [1, 0, 0]) and (A[1, :] == [0, 4, 0]) and (
+        assert (A[0, :] == [1, 0, 0]) and (A[1, :] == [0, 2, 0]) and (
             A[2, :] == [0, 0, 3]), "Matrix A slices should match expected"
         assert (D[0, :] == [1, 0, 0]) and (D[1, :] == [0, 3, 0]) and (
             D[2, :] == [0, 0, 2]), "Matrix D slices should match expected"
 
         result_matrix = A.subtract(D)
 
-        assert (result_matrix[0, :] == [0, 0, 0]) and (result_matrix[1, :] == [0, 1, 0]) and (
+        assert (result_matrix[0, :] == [0, 0, 0]) and (result_matrix[1, :] == [0, -1, 0]) and (
             result_matrix[2, :] == [0, 0, 1]), "Result matrix should match expected"
 
     except Exception as e:
@@ -326,21 +340,17 @@ def test_subtraction():
         excinfo2.value), "Exception message should indicate incompatible sizes for subtraction"
 
     with pytest.raises(ValueError) as excinfo3:
-        A = dia_matrix(3, 3)
-        A.set_element(0, 0, -1)
+        A = dia_matrix(3, 3,data=[-1,0,0])
 
-        D = dia_matrix(3, 3)
-        D.set_element(0, 0, 1)
+        D = dia_matrix(3, 3,data=[1,0,0])
         _ = A.subtract(D)
     assert "Positive definite matrix cannot have negative diagonal elements" in str(
         excinfo3.value), "Exception message should indicate negative diagonal elements in matrix A"
 
     with pytest.raises(ValueError) as excinfo4:
-        A = dia_matrix(3, 3)
-        A.set_element(0, 0, 1)
+        A = dia_matrix(3, 3,data=[1,0,0])
 
-        D = dia_matrix(3, 3)
-        D.set_element(0, 0, -1)
+        D = dia_matrix(3, 3,data=[-1,0,0])
         _ = A.subtract(D)
     assert "Positive definite matrix cannot have negative diagonal elements" in str(
         excinfo4.value), "Exception message should indicate negative diagonal elements in matrix D"
@@ -349,15 +359,9 @@ def test_subtraction():
 def test_division():
     # Test division by zero encountered
     try:
-        A = dia_matrix(3, 3)
-        A.set_element(0, 0, 1)
-        A.set_element(1, 1, 4)
-        A.set_element(2, 2, 3)
+        A = dia_matrix(3, 3,data=[1,4,3])
 
-        D = dia_matrix(3, 3)
-        D.set_element(0, 0, 1)
-        D.set_element(1, 1, 0)
-        D.set_element(2, 2, 2)
+        D = dia_matrix(3, 3,data=[1,0,2])
 
         with pytest.raises(ValueError):
             A.divide(D)
@@ -365,14 +369,9 @@ def test_division():
         pytest.fail(f"Test for division by zero failed with exception: {e}")
     # Test matrices of different sizes
     try:
-        A = dia_matrix(3, 3)
-        A.set_element(0, 0, 1)
-        A.set_element(1, 1, 4)
-        A.set_element(2, 2, 3)
+        A = dia_matrix(3, 3,data=[1,4,3])
 
-        D = dia_matrix(2, 2)
-        D.set_element(0, 0, 1)
-        D.set_element(1, 1, 3)
+        D = dia_matrix(2, 2,data=[1,3])
 
         with pytest.raises(ValueError):
             A.divide(D)
@@ -392,17 +391,9 @@ def test_division():
             f"Test for matrices not being dia_matrix instances failed with exception: {e}")
     # Test matrices not compatible for division
     try:
-        A = dia_matrix(3, 3)
-        A.set_element(0, 0, 1)
-        A.set_element(1, 1, 4)
-        A.set_element(2, 2, 3)
+        A = dia_matrix(3, 3, data=[1,4,3])
 
-        D = dia_matrix(3, 3)
-        D.set_element(0, 0, 1)
-        D.set_element(1, 1, 3)
-        D.set_element(2, 2, 2)
-
-        D.set_element(2, 1, 0)
+        D = dia_matrix(3, 3, data=[1,3,2])
 
         with pytest.raises(ValueError):
             A.divide(D)

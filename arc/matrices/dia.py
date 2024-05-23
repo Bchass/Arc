@@ -4,7 +4,7 @@ class dia_matrix:
     A class representing a diagonal row (dia) matrix.
     """
 
-    def __init__(self, size, shape=None, dtype=None, other=None):
+    def __init__(self, size, shape=None, dtype=None, other=None, data=None, offsets=None):
         """
         Initialize the DIA matrix.
 
@@ -13,6 +13,7 @@ class dia_matrix:
         - shape (type, optional): Shape of the matirx.
         - dtype (type, optional): Data type of the elements in the matrix.
         - other (type, optional): Second matrix for subtraction, addition, etc.
+        - data  (type, optional): Data to be inserted on the main diagonal or anti-diagonal
         """
 
         self.size = size
@@ -27,6 +28,29 @@ class dia_matrix:
                 self.matrix = [[0] * shape] * size
             else:
                 self.matrix = [[0] * shape for _ in range(size)]
+
+        if data is not None:
+            for i in range(min(size, len(data))):
+                self.matrix[i][i] = data[i]  # main diagonal
+            if len(data) > size:
+                for i in range(min(size, len(data))):
+                    self.matrix[size - 1 - i][i] = data[len(data) - 1 - i] # anti-diagonal
+
+        if offsets is not None and data is not None:
+            # make sure offsets are lined up with data
+            for offset, d in zip(offsets, data):
+                # check negative offsets if they are less than size or greater than or equal to 0
+                if -size < offset < size:
+                    if offset >= 0:
+                        # handle positive offset
+                        for i in range(size - offset):
+                            self.matrix[i + offset][i] = d
+                    else:
+                        # handle negative offset
+                        for i in range(size + offset):
+                            self.matrix[i][i - offset] = d
+                else:
+                    print(f"Ignoring offset {offset}, it's out of bounds")
 
     def __call__(self):
         return self
@@ -59,16 +83,6 @@ class dia_matrix:
         if not any(self.matrix):
             return ""
         return str(self)
-
-    def set_element(self, row, col, value):
-
-        if row < 0 or row >= self.size or col < 0 or col >= self.size:
-            raise ValueError("Index out of range")
-            # support left to right and right to left
-        if row == col or row + col == self.size - 1 or value == 0:
-            self.matrix[row][col] = value
-        else:
-            raise ValueError("Can only set elements on diagonal")
 
     def get_shape(self):
 
