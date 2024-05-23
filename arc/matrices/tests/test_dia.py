@@ -1,4 +1,4 @@
-import pytest
+import pytest, sys, io
 from arc.matrices import dia_matrix
 from arc.matrices.data_types import *
 
@@ -80,6 +80,28 @@ def test_default_constructor():
         assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
     except Exception as e:
         pytest.fail(f"Edge case test failed with exception: {e}")
+
+    try:
+        test_input_matrix = dia_matrix(4, 4, data=[1, 2, 3, 4], offsets=[0,2,-1,1,2])
+        expected_matrix = [[1, 3, 0, 0], [4, 1, 3, 0], [2, 4, 1, 3], [0, 2, 4, 1]]
+
+        assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
+    except Exception as e:
+        pytest.fail(f"Edge case test failed with exception: {e}")
+    
+    try:
+        captured_output = io.StringIO()
+        sys.stdout = captured_output
+
+        test_input_matrix = dia_matrix(5, 5, data=[1, 2, 3, 4], offsets=[6])
+        printed_output = captured_output.getvalue().strip()
+
+        sys.stdout = sys.__stdout__
+
+        assert printed_output == "Ignoring offset 6, it's out of bounds"
+    except Exception as e:
+        pytest.fail(f"Edge case test failed with unexpected exception: {e}")
+
 
 def test_getitem():
     try:

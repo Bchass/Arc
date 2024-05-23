@@ -33,9 +33,24 @@ class dia_matrix:
             for i in range(min(size, len(data))):
                 self.matrix[i][i] = data[i]  # main diagonal
             if len(data) > size:
-                # anti-diagonal
                 for i in range(min(size, len(data))):
-                    self.matrix[size - 1 - i][i] = data[len(data) - 1 - i]
+                    self.matrix[size - 1 - i][i] = data[len(data) - 1 - i] # anti-diagonal
+
+        if offsets is not None and data is not None:
+            # make sure offsets are lined up with data
+            for offset, d in zip(offsets, data):
+                # check negative offsets if they are less than size or greater than or equal to 0
+                if -size < offset < size:
+                    if offset >= 0:
+                        # handle positive offset
+                        for i in range(size - offset):
+                            self.matrix[i + offset][i] = d
+                    else:
+                        # handle negative offset
+                        for i in range(size + offset):
+                            self.matrix[i][i - offset] = d
+                else:
+                    print(f"Ignoring offset {offset}, it's out of bounds")
 
     def __call__(self):
         return self
