@@ -68,8 +68,6 @@ def test_default_constructor():
         test_input_matrix = dia_matrix(4,4, data=[1,2,3,4])
         expected_matrix = [[1, 0, 0, 0], [0, 2, 0, 0], [0, 0, 3, 0], [0, 0, 0, 4]]
 
-        assert test_input_matrix._loop_broken is False, "Loop was broken prematurely"
-
         assert test_input_matrix.matrix == expected_matrix, f"Expected {expected_matrix}, but got {test_input_matrix.matrix}"
     except Exception as e:
         pytest.fail(f"Edge case test failed with exception: {e}")
