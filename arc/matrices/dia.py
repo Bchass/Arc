@@ -32,7 +32,7 @@ class dia_matrix:
         if data is not None:
             for i in range(min(size, len(data))):
                 self.matrix[i][i] = data[i]  # main diagonal
-            if len(data) >= size:
+            if len(data) > size:
                 # anti-diagonal
                 for i in range(min(size, len(data))):
                     self.matrix[size - 1 - i][i] = data[len(data) - 1 - i]
@@ -68,16 +68,6 @@ class dia_matrix:
         if not any(self.matrix):
             return ""
         return str(self)
-
-    def set_element(self, row, col, value):
-
-        if row < 0 or row >= self.size or col < 0 or col >= self.size:
-            raise ValueError("Index out of range")
-            # support left to right and right to left
-        if row == col or row + col == self.size - 1 or value == 0:
-            self.matrix[row][col] = value
-        else:
-            raise ValueError("Can only set elements on diagonal")
 
     def get_shape(self):
 
