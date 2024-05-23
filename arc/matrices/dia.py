@@ -30,15 +30,11 @@ class dia_matrix:
                 self.matrix = [[0] * shape for _ in range(size)]
 
         if data is not None:
-            for i in range(size):
-                if i < len(data):
-                    self.matrix[i][i] = data[i]  # main diagonal
-                quotient, remainder = divmod(size, 1)
-                if remainder == 0 and i == quotient:
-                    # If even and we're at the middle, stop assigning
-                    break  # pragma: no cover
-                if len(data) > size:
-                    # anti-diagonal
+            for i in range(min(size, len(data))):
+                self.matrix[i][i] = data[i]  # main diagonal
+            if len(data) >= size:
+                # anti-diagonal
+                for i in range(min(size, len(data))):
                     self.matrix[size - 1 - i][i] = data[len(data) - 1 - i]
 
     def __call__(self):
