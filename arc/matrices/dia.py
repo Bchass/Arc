@@ -20,7 +20,6 @@ class dia_matrix:
         self.shape = shape
         self.dtype = dtype
         self.other = other
-        self._loop_broken = False 
 
         if shape is None:
             shape = size
@@ -36,8 +35,8 @@ class dia_matrix:
                     self.matrix[i][i] = data[i]  # main diagonal
                 quotient, remainder = divmod(size, 1)
                 if remainder == 0 and i == quotient:
-                    self._loop_broken = True
-                    break  # If even and we're at the middle, stop assigning
+                    # If even and we're at the middle, stop assigning
+                    break  # pragma: no cover
                 if len(data) > size:
                     # anti-diagonal
                     self.matrix[size - 1 - i][i] = data[len(data) - 1 - i]
