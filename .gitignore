@@ -7,3 +7,4 @@ arc/arc/__pycache__/__init__.cpython-310.pyc
 arc/arc/__pycache__/data_types.cpython-310.pyc
 arc/arc/__pycache__/dia.cpython-310.pyc
 .DS_Store
+.coverage
