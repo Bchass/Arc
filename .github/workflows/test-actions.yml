@@ -38,9 +38,13 @@ jobs:
           autopep8 --in-place --recursive .
         working-directory: arc/matrices
 
+      - name: Install tinynumpy
+        run: |
+          python -m pip install 
+
       - name: Install pytest
         run: |
-          python -m pip install pytest
+          python -m pip install dist/tinynumpy-1.2.1.tar.gz
       
       - name: Install pytest-cov
         run: python -m pip install pytest-cov
