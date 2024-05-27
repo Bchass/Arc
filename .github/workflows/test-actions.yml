@@ -43,11 +43,11 @@ jobs:
 
       - name: Install tinynumpy
         run: |
-          python -m pip install 
+          python -m pip install dist/tinynumpy-1.2.1.tar.gz
 
       - name: Install pytest
         run: |
-          python -m pip install dist/tinynumpy-1.2.1.tar.gz
+          python -m pip install pytest
       
       - name: Install pytest-cov
         run: python -m pip install pytest-cov
