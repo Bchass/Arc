@@ -45,6 +45,10 @@ jobs:
         run: |
           python -m pip install dist/tinynumpy-1.2.1.tar.gz
 
+      - name: Install numpy
+        run: |
+          python -m pip install numpy
+
       - name: Install pytest
         run: |
           python -m pip install pytest
