@@ -1,6 +1,8 @@
 import pytest
 from arc.matrices import csr_matrix
 from arc.matrices.data_types import *
+from tinynumpy import tinynumpy as tnp
+import numpy as np
 
 def test_default_constructor():
     try:
@@ -162,28 +164,16 @@ def test_nnz():
 
 def test_toarray():
     try:
-        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2], dtype=int8)
-        dense_array, dtype_str = matrix_instance.toarray()
+        matrix_instance = csr_matrix(3, 3, data=tnp.array([1, 2, 3, 4, 5, 6]), row=tnp.array([0, 0, 1, 2, 2, 2]), col=tnp.array([0, 2, 2, 0, 1, 2])).toarray()
         
-        expected_array = [[1, 0, 2], [0, 0, 3], [4, 5, 6]]
-        expected_dtype_str = 'int8'
+        expected_array = np.array([[1, 0, 2],
+                                   [0, 0, 3],
+                                   [4, 5, 6]], dtype='int64')
 
-        assert dense_array == expected_array
-        assert dtype_str == expected_dtype_str
-
-    except Exception as e:
-        assert False, f"An error occurred: {e}"
-
-    try:
-        matrix_instance = csr_matrix(3, 3, data=[1, 2, 3, 4, 5, 6], row=[0, 0, 1, 2, 2, 2], col=[0, 2, 2, 0, 1, 2])
-        matrix_instance.toarray()
-
-        expected_array = [[1, 0, 2], [0, 0, 3], [4, 5, 6]]
-        assert dense_array == expected_array
+        assert np.array_equal(matrix_instance, expected_array)
 
     except Exception as e:
         assert False, f"An error occurred: {e}"
-
 
 def test_multiplication():
     try:

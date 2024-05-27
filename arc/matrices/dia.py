@@ -1,3 +1,5 @@
+from tinynumpy import tinynumpy as tnp
+
 class dia_matrix:
 
     """
@@ -34,7 +36,8 @@ class dia_matrix:
                 self.matrix[i][i] = data[i]  # main diagonal
             if len(data) > size:
                 for i in range(min(size, len(data))):
-                    self.matrix[size - 1 - i][i] = data[len(data) - 1 - i] # anti-diagonal
+                    # anti-diagonal
+                    self.matrix[size - 1 - i][i] = data[len(data) - 1 - i]
 
         if offsets is not None and data is not None:
             # make sure offsets are lined up with data
@@ -181,9 +184,5 @@ class dia_matrix:
 
     def toarray(self):
 
-        array = self.matrix[:]
-        if self.dtype is not None:
-            dtype_str = self.dtype.__name__
-            return [row[:] for row in array], dtype_str
-        else:
-            return [row[:] for row in array]
+        arr = self.matrix[:]
+        return tnp.array(arr)

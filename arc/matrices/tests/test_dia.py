@@ -1,6 +1,7 @@
 import pytest, sys, io
 from arc.matrices import dia_matrix
 from arc.matrices.data_types import *
+import numpy as np
 
 
 def test_default_constructor():
@@ -401,17 +402,16 @@ def test_division():
         pytest.fail(
             f"Test for matrices not compatible for division failed with exception: {e}")
 
-
 def test_toarray():
     try:
-        matrix_instance = dia_matrix(3, 3, dtype=int8)
-        dense_array, dtype_str = matrix_instance.toarray()
+        matrix_instance = dia_matrix(3, 3).toarray()
 
-        expected_array = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
-        expected_dtype_str = 'int8'
+        expected_array = np.array([[0, 0, 0],
+                                   [0, 0, 0],
+                                   [0, 0, 0]], dtype='int64')
 
-        assert dense_array == expected_array
-        assert dtype_str == expected_dtype_str
+        assert np.array_equal(matrix_instance, expected_array)
 
     except Exception as e:
         assert False, f"An error occurred: {e}"
+
