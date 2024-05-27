@@ -19,6 +19,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Upgrade pip
+        run: python -m pip install --upgrade pip
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -37,6 +40,14 @@ jobs:
           python -m pip install autopep8
           autopep8 --in-place --recursive .
         working-directory: arc/matrices
+
+      - name: Install tinynumpy
+        run: |
+          python -m pip install dist/tinynumpy-1.2.1.tar.gz
+
+      - name: Install numpy
+        run: |
+          python -m pip install numpy
 
       - name: Install pytest
         run: |

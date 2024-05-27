@@ -1,3 +1,5 @@
+from tinynumpy import tinynumpy as tnp
+
 class csr_matrix:
 
     """
@@ -84,12 +86,8 @@ class csr_matrix:
 
     def toarray(self):
 
-        array = self.matrix[:]
-        if self.dtype is not None:
-            dtype_str = self.dtype.__name__
-            return [row[:] for row in array], dtype_str
-        else:
-            return [row[:] for row in array]
+        arr = self.matrix[:]
+        return tnp.array(arr)
 
     def nnz(self):
 

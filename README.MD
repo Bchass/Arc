@@ -7,33 +7,34 @@ Arc
 
 In the realm of scientific computing, efficiency and simplicity are often paramount. Inspired by the principles of projects like SciPy, Arc emerges as a lightweight alternative, meticulously crafted without the burden of extra dependencies.
 
----
+Basic usage:
 
-#### Basic usage:
+> #### [tinynumpy](https://github.com/Bchass/tinynumpy) is optional
+---
 
 ```python3
 >>> from arc.matrices import csr_matrix
+>>> from tinynumpy import tinynumpy as tnp
 
->>> row1 = [0, 0, 1, 1, 2, 2]
->>> col1 = [0, 1, 0, 1, 0, 1]
->>> data1 = [1, 2, 3, 4, 5, 6]
+>>> row1 = tnp.array([0, 0, 1, 1, 2, 2])
+>>> col1 = tnp.array([0, 1, 0, 1, 0, 1])
+>>> data1 = tnp.array([1, 2, 3, 4, 5, 6])
 >>> A = csr_matrix(3, 2, data=data1, row=row1, col=col1)
 
->>> row2 = [0, 0, 1, 1]
->>> col2 = [0, 1, 0, 1]
->>> data2 = [7, 8, 9, 10]
+>>> row2 = tnp.array([0, 0, 1, 1])
+>>> col2 = tnp.array([0, 1, 0, 1])
+>>> data2 = tnp.array([7, 8, 9, 10])
 >>> D = csr_matrix(2, 2, data=data2, row=row2, col=col2)
 
->>> A.multiply(D)
+>>> A.multiply(D).toarray()
 
-[25, 28]
-[57, 64]
-[89, 100]
+array([[25, 28],
+       [57, 64],
+       [89, 100]], dtype='int64')
 ```
 
+Example Baseline Benchmark:
 ---
-
-#### Example Baseline Benchmark:
 
 Arc
 ```
@@ -64,8 +65,9 @@ dia_matrix((400, 400), dtype=np.int8).toarray()
 ```
 ---
 
-### [Contributing Guidelines](https://github.com/Bchass/Arc/blob/main/CONTRIBUTING.md)
+[Contributing Guidelines](https://github.com/Bchass/Arc/blob/main/CONTRIBUTING.md)
 ---
 
-###  Roadmap:
+Roadmap:
+---
 Test cases can be enhanced; additional classes will be offered; push to pypi when there's enough to offer.
