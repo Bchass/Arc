@@ -59,6 +59,8 @@ jobs:
       - name: Run tests with Python ${{ matrix.python-version }}
         run: |
           python${{ matrix.python-version }} -m pytest --cov=arc/matrices --cov-report=xml arc/matrices/tests
+          python${{ matrix.python-version }} -m pytest --cov=arc/linear_alg --cov-report=xml arc/linear_alg/tests
+      
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4.0.1
