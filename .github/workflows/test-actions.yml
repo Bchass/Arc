@@ -38,7 +38,7 @@ jobs:
       - name: Install BLAS and LAPACK for macOS
         if: runner.os == 'macOS'
         run: |
-            brew install openblas
+          brew install openblas
 
       - name: Autoformat code with autopep8
         run: |

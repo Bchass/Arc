@@ -1,4 +1,5 @@
 import ctypes
+import ctypes.util
 from ctypes import POINTER, c_int, c_float
 
 '''
@@ -10,10 +11,12 @@ For implementation: https://developer.apple.com/documentation/accelerate
 class arc_BLAS:
 
     def load_BLAS():
-
-        # Load the Accelerate framework
-        return ctypes.CDLL(
-            '/System/Library/Frameworks/Accelerate.framework/Versions/Current/Frameworks/vecLib.framework/Versions/Current/libBLAS.dylib')  # noqa
+        try:
+            # Try to load OpenBLAS library using full path
+            return ctypes.CDLL('/opt/homebrew/Cellar/openblas/0.3.27/lib/libopenblas.dylib')
+        except OSError:
+            # If unable to find OpenBLAS library, raise an error
+            raise OSError("Unable to find OpenBLAS library")
 
     @staticmethod
     def sdot(x, y):
