@@ -35,6 +35,11 @@ jobs:
         run: |
           sudo apt-get install -y libblas-dev liblapack-dev
 
+      - name: Install BLAS and LAPACK for macOS
+        if: runner.os == 'macOS'
+        run: |
+            brew install openblas
+
       - name: Autoformat code with autopep8
         run: |
           python -m pip install autopep8
