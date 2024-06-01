@@ -39,10 +39,6 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install openblas
-
-      - name: Print OpenBLAS installation path
-        if: runner.os == 'macOS'
-        run: |
           brew info openblas
         
       - name: Autoformat code with autopep8
